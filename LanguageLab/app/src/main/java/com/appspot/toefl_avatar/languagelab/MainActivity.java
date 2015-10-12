@@ -12,9 +12,29 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    // SectionHeaders
+    private final static String[] days = new String[]{
+                                        "Questions 1 & 2 - Familiar Topics",
+                                        "Questions 3 & 4 - Campus Situation",
+                                        "Questions 5 & 6 - Academic Course Content"};
+
+    // Section Contents
+    private final static String[] notes = new String[]{"Ate Breakfast", "Ran a Marathan ...yah really", "Slept all day"};
+
+    // Adapter for ListView Contents
+    private SeparatedListAdapter adapter;
+
+    // ListView Contents
+    private ListView journalListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +60,33 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Create the ListView Adapter
+        adapter = new SeparatedListAdapter(this);
+        ArrayAdapter<String> listadapter = new ArrayAdapter<>(this, R.layout.list_item, notes);
+
+        // Add Sections
+        for (int i = 0; i < days.length; i++)
+        {
+            adapter.addSection(days[i], listadapter);
+        }
+
+        // Get a reference to the ListView holder
+        journalListView = (ListView) this.findViewById(R.id.list_journal);
+
+        // Set the adapter on the ListView holder
+        journalListView.setAdapter(adapter);
+
+        // Listen for Click events
+        journalListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long duration)
+            {
+                String item = (String) adapter.getItem(position);
+                Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
