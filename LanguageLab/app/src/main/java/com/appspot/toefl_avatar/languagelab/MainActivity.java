@@ -1,5 +1,6 @@
 package com.appspot.toefl_avatar.languagelab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -17,12 +18,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.appspot.toefl_avatar.languagelab.data.DataContract;
+import com.appspot.toefl_avatar.languagelab.data.QuestionDataSource;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     // SectionHeaders
-    private final static String[] days = new String[]{
+    private final static String[] questionTypes = new String[]{
                                         "Questions 1 & 2 - Familiar Topics",
                                         "Questions 3 & 4 - Campus Situation",
                                         "Questions 5 & 6 - Academic Course Content"};
@@ -34,7 +38,7 @@ public class MainActivity extends AppCompatActivity
     private SeparatedListAdapter adapter;
 
     // ListView Contents
-    private ListView journalListView;
+    private ListView questionListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,28 +67,34 @@ public class MainActivity extends AppCompatActivity
 
         // Create the ListView Adapter
         adapter = new SeparatedListAdapter(this);
-        ArrayAdapter<String> listadapter = new ArrayAdapter<>(this, R.layout.list_item, notes);
+        //ArrayAdapter<String> listadapter = new ArrayAdapter<>(this, R.layout.list_item, notes);
+        QuestionDataSource.populateQuestionsList(getResources().getXml(R.xml.data), 0);
+        QuestionArrayAdapter mQuestionsAdapter = new QuestionArrayAdapter(this, QuestionDataSource.ITEMS);
 
         // Add Sections
-        for (int i = 0; i < days.length; i++)
+        for (int i = 0; i < questionTypes.length; i++)
         {
-            adapter.addSection(days[i], listadapter);
+            //adapter.addSection(questionTypes[i], listadapter);
+            adapter.addSection(questionTypes[i], mQuestionsAdapter);
         }
 
         // Get a reference to the ListView holder
-        journalListView = (ListView) this.findViewById(R.id.list_journal);
+        questionListView = (ListView) this.findViewById(R.id.list_journal);
 
         // Set the adapter on the ListView holder
-        journalListView.setAdapter(adapter);
+        questionListView.setAdapter(adapter);
 
         // Listen for Click events
-        journalListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        questionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long duration)
-            {
-                String item = (String) adapter.getItem(position);
-                Toast.makeText(getApplicationContext(), item, Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long duration) {
+                if (position <= QuestionDataSource.ITEMS.size()) {
+                    DataContract.QuestionItem item = QuestionDataSource.ITEMS.get(position-1);
+                    Intent detailIntent = new Intent(MainActivity.this, QuestionDetailActivity.class);
+                    detailIntent.putExtra(QuestionDetailFragment.ARG_ITEM_ID, item.id);
+                    startActivity(detailIntent);
+                }
+                Toast.makeText(MainActivity.this, "Out of Bound", Toast.LENGTH_SHORT);
             }
         });
     }
