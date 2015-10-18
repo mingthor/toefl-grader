@@ -1,4 +1,4 @@
-package com.appspot.toefl_avatar.languagelab;
+package com.appspot.toefl_avatar.app;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.appspot.toefl_avatar.languagelab.data.DataContract;
-import com.appspot.toefl_avatar.languagelab.data.QuestionDataSource;
+import com.appspot.toefl_avatar.app.data.DataContract;
+import com.appspot.toefl_avatar.app.data.QuestionDataSource;
 
 
 /**

@@ -1,11 +1,10 @@
-package com.appspot.toefl_avatar.languagelab;
+package com.appspot.toefl_avatar.app;
 
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -19,11 +18,9 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.appspot.toefl_avatar.languagelab.data.DataContract;
-import com.appspot.toefl_avatar.languagelab.data.QuestionDataSource;
-import com.appspot.toefl_avatar.languagelab.data.ToeflAvatarDbHelper;
-
-import java.io.File;
+import com.appspot.toefl_avatar.app.data.ToeflAvatarDbHelper;
+import com.appspot.toefl_avatar.app.data.DataContract;
+import com.appspot.toefl_avatar.app.data.QuestionDataSource;
 
 /**
  * A fragment representing a single Question detail screen.
@@ -87,7 +84,7 @@ public class QuestionDetailFragment extends Fragment {
 
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Context activity) {
         super.onAttach(activity);
         try {
             mOnRecordClickCallback = (View.OnClickListener) activity;

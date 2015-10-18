@@ -1,12 +1,11 @@
-package com.appspot.toefl_avatar.languagelab;
+package com.appspot.toefl_avatar.app;
 
 import android.app.Activity;
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.util.Log;
 
-import com.appspot.toefl_avatar.languagelab.data.ToeflAvatarDbHelper;
+import com.appspot.toefl_avatar.app.data.ToeflAvatarDbHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +20,7 @@ public class MediaController {
     private static MediaPlayer mPlayer = null;
     private static MediaController mInstance = null;
     private String mFileName = null;
-    private static File mAppStorageDir = null;
+    private File mAppStorageDir = null;
     private ToeflAvatarDbHelper mDBHelper = null;
     private String mQuestionId;
     private long mStartTime;
@@ -83,6 +82,8 @@ public class MediaController {
         mFileName = getUniqueFilename(mAppStorageDir.getAbsolutePath());
         try {
             mRecorder = new MediaRecorder();
+            // TODO:
+            // setAudioSource failed when minSdkVersion set to 19, not know why
             mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             mRecorder.setOutputFile(mAppStorageDir + "/" + mFileName);

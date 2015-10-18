@@ -1,8 +1,7 @@
-package com.appspot.toefl_avatar.languagelab;
+package com.appspot.toefl_avatar.app;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;

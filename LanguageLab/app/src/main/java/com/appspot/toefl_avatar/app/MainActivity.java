@@ -1,9 +1,11 @@
-package com.appspot.toefl_avatar.languagelab;
+package com.appspot.toefl_avatar.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Pair;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,12 +16,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.appspot.toefl_avatar.languagelab.data.DataContract;
-import com.appspot.toefl_avatar.languagelab.data.QuestionDataSource;
+import com.appspot.toefl_avatar.app.data.DataContract;
+import com.appspot.toefl_avatar.app.data.QuestionDataSource;
 
 
 public class MainActivity extends AppCompatActivity
@@ -30,9 +31,6 @@ public class MainActivity extends AppCompatActivity
                                         "Questions 1 & 2 - Familiar Topics",
                                         "Questions 3 & 4 - Campus Situation",
                                         "Questions 5 & 6 - Academic Course Content"};
-
-    // Section Contents
-    private final static String[] notes = new String[]{"Ate Breakfast", "Ran a Marathan ...yah really", "Slept all day"};
 
     // Adapter for ListView Contents
     private SeparatedListAdapter adapter;
@@ -67,14 +65,12 @@ public class MainActivity extends AppCompatActivity
 
         // Create the ListView Adapter
         adapter = new SeparatedListAdapter(this);
-        //ArrayAdapter<String> listadapter = new ArrayAdapter<>(this, R.layout.list_item, notes);
         QuestionDataSource.populateQuestionsList(getResources().getXml(R.xml.data), 0);
         QuestionArrayAdapter mQuestionsAdapter = new QuestionArrayAdapter(this, QuestionDataSource.ITEMS);
 
         // Add Sections
         for (int i = 0; i < questionTypes.length; i++)
         {
-            //adapter.addSection(questionTypes[i], listadapter);
             adapter.addSection(questionTypes[i], mQuestionsAdapter);
         }
 
@@ -125,6 +121,9 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            // TODO:
+            // Move backend API calls to proper place
+            new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "TOEFL Avatar"));
             return true;
         }
 

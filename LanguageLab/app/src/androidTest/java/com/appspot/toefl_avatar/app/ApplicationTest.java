@@ -1,4 +1,4 @@
-package com.appspot.toefl_avatar.languagelab;
+package com.appspot.toefl_avatar.app;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

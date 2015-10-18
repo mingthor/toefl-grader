@@ -1,4 +1,4 @@
-package com.appspot.toefl_avatar.languagelab.data;
+package com.appspot.toefl_avatar.app.data;
 
 import android.provider.BaseColumns;
 
