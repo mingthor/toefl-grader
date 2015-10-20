@@ -1,11 +1,9 @@
 package com.appspot.toefl_avatar.app;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Pair;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -69,9 +67,8 @@ public class MainActivity extends AppCompatActivity
         QuestionArrayAdapter mQuestionsAdapter = new QuestionArrayAdapter(this, QuestionDataSource.ITEMS);
 
         // Add Sections
-        for (int i = 0; i < questionTypes.length; i++)
-        {
-            adapter.addSection(questionTypes[i], mQuestionsAdapter);
+        for (String type :questionTypes) {
+            adapter.addSection(type, mQuestionsAdapter);
         }
 
         // Get a reference to the ListView holder
@@ -121,9 +118,6 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            // TODO:
-            // Move backend API calls to proper place
-            new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "TOEFL Avatar"));
             return true;
         }
 
