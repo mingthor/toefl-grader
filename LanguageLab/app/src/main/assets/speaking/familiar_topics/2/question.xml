@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<speaking>
+	<description>Question</description>
+    <category>Familiar Topics</category>
+	<directions>
+		<content>You will now be asked to give your opinion about a familiar topic. Give yourself 15 seconds to prepare your response. Then record yourself speaking for 45 seconds.</content>
+		<track>track.mp3</track>
+	</directions>
+    <question>
+		<content>Talk about a time when a friend or family member helped you in the past. Describe how the person helped you. Then explain why this was important to you.</content>
+		<preparationTime>15</preparationTime>
+		<responseTime>45</responseTime>
+	</question>
+</speaking>

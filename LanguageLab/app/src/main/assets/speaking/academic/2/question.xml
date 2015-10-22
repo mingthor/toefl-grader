@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<speaking>
+	<description>Passage, Lecture, and Question</description>
+    <category>Academic Course Content</category>
+	<directions>
+		<content>You will now read a short passage and listen to a talk on the same topic. You will then be asked a question about them. After you hear the question, give yourself 30 seconds to prepare your response. Then record yourself speaking for 60 seconds.</content>
+		<track>track1.mp3</track>
+	</directions>
+	<passage>
+		<title>BEHAVIOR MODIFICATION</title>
+		<content>Individuals often modify their behavior based on what they have learned about the possible consequences of their actions. When an individual learns through experience that a certain behavior results in pleasant consequences, that behavior is likely to be repeated. An unpleasant consequence, on the other hand, discourages further repetition of the behavior. While behavior modification can be observed in experiments, it also occurs frequently in everyday settings, when individuals change their behavior based on what they have learned about the consequences of that behavior.</content>
+		<readingTime>45</readingTime>
+	</passage>
+	<lecture>
+		<image>image1.png</image>
+		<track>track2.mp3</track>
+	</lecture>
+    <question>
+		<content>Using the example from the lecture, explain what behavior modification is and how it works.</content>
+		<preparationTime>30</preparationTime>
+		<responseTime>60</responseTime>
+	</question>
+</speaking>

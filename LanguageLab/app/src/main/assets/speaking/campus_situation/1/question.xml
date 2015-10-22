@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<speaking>
+	<description>Passage, Conversation, and Question</description>
+    <category>Campus Situation</category>
+	<directions>
+		<content>You will now read a short passage and listen to a talk on the same topic. You will then be asked a question about them. After you hear the question, you have 30 seconds to prepare your response and 60 seconds to respone.</content>
+		<track>track1.mp3</track>
+	</directions>
+	<passage>
+		<title>MUSIC COMING TO CAFETERIAS</title>
+		<title_chinese>餐厅播放音乐</title_chinese>
+		<content>Mary Dixon, Director of the Student Life Committee, announced yesterday that beginning next semester, university cafeterias will broadcast classical music during mealtimes. “Music will foster a more relaxed atmosphere,” said Dixon. “Students’ lives are hectic, and mealtimes provide important opportunities to take a break and catch up with friends before moving on to the next class or assignment.” Added Dixon, “We’re also hoping that, if we provide the music, students will unplug their personal music devices—their Walkmans™ and MP3 players or whatever—and will spend more time talking to each other. When students have their headphones on, they’re not connecting with each other.”</content>
+		<readingTime>50</readingTime>
+	</passage>
+	<conversation>
+		<image>image1.png</image>
+		<track>track2.mp3</track>
+	</conversation>
+    <question>
+		<content>The man expresses his opinion of the university’s plan. State his opinion and explain the reasons
+he gives for holding that opinion.</content>
+		<preparationTime>30</preparationTime>
+		<responseTime>60</responseTime>
+	</question>
+</speaking>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<speaking>
+	<description>Lecture and Question</description>
+    <category>Academic Course Content</category>
+	<directions>
+		<content>You will now listen to part of a lecture. You will then be asked a question about it. After you hear the question, give yourself 20 seconds to prepare your response. Then record yourself speaking for 60 seconds.</content>
+	</directions>
+	<lecture>
+		<image>image.png</image>
+		<track>track1.mp3</track>
+	</lecture>
+    <question>
+		<content>Using points and examples from the lecture, explain the two major factors of product quality and
+how their role in consumer decision making has changed.</content>
+		<preparationTime>20</preparationTime>
+		<responseTime>60</responseTime>
+	</question>
+</speaking>
