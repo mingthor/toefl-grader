@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<speaking>
+	<description>Conversation and Question</description>
+    <category>Campus Situation</category>
+	<directions>
+		<content>You will now listen to part of a conversation. You will then be asked a question about it. After you hear the question, give yourself 20 seconds to prepare your response. Then record yourself speaking for 60 seconds.</content>
+	</directions>
+	<conversation>
+		<image>image.png</image>
+		<track>track1.mp3</track>
+	</conversation>
+    <question>
+		<content>Briefly summarize the problem the speakers are discussing. Then state which solution you would
+recommend. Explain the reasons for your recommendation.</content>
+		<preparationTime>20</preparationTime>
+		<responseTime>60</responseTime>
+	</question>
+</speaking>
