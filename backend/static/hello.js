@@ -12,18 +12,19 @@
 
 function init() {
 	
-	// You need to pass the root path when you load your API
-	// otherwise calls to execute the API run into a problem
-	
-	// rootpath will evaulate to either of these, depending on where the app is running:
-	// //localhost:8080/_ah/api
-	// //your-app-id/_ah/api
+    // You need to pass the root path when you load your API
+    // otherwise calls to execute the API run into a problem
+    
+    // rootpath will evaulate to either of these, depending on where the app is running:
+    // //localhost:8080/_ah/api
+    // //your-app-id/_ah/api
 
-	var rootpath = "//" + window.location.host + "/_ah/api";
-	
-	// Load the helloworldendpoints API
-	// If loading completes successfully, call loadCallback function
-	gapi.client.load('helloworldendpoints', 'v1', loadCallback, rootpath);
+    var rootpath = "//" + window.location.host + "/_ah/api";
+    
+    // Load the helloworldendpoints API
+    // If loading completes successfully, call loadCallback function
+    gapi.client.load('helloworldendpoints', 'v1', loadCallback, rootpath);
+    gapi.client.load('toeflgrader', 'v1', loadCallback, rootpath);
 }
 
 /*
@@ -56,6 +57,10 @@ function enableButtons () {
     btn = document.getElementById("input_greet_by_period");
     btn.onclick=function(){greetByPeriod();};
     btn.value="Click me for a personal greeting with period";
+
+    btn = document.getElementById("input_grade_answer");
+    btn.onclick=function(){gradeUserAnswer();};
+    btn.value="Submit";
 }
 
 /*
@@ -92,6 +97,13 @@ function greetByPeriod() {
     request.execute(sayHelloCallback);
 }
 
+function gradeUserAnswer() {
+    var question = document.getElementById("question_id").value;
+    var answer = document.getElementById("answer").value;
+    var request = gapi.client.toeflgrader.gradeUserAnswer({'question_id': question, 'answer': answer});
+    request.execute(graderCallback);
+}
+
 // Process the JSON response
 // In this case, just show an alert dialog box
 // displaying the value of the message field in the response
@@ -99,5 +111,7 @@ function sayHelloCallback (response) {
 	alert(response.greeting);	
 }
 
-
+function graderCallback (response) {
+    alert(response.content);
+}
 

@@ -53,4 +53,4 @@ class HelloWorldApi(remote.Service):
       return Hello(greeting=greet)
 
 
-APPLICATION = endpoints.api_server([HelloWorldApi])
+# APPLICATION = endpoints.api_server([HelloWorldApi])
