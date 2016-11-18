@@ -1,6 +1,5 @@
-package com.appspot.toefl_avatar.app;
+package com.appspot.toefl_grader.app;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,9 +17,9 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.appspot.toefl_avatar.app.data.ToeflAvatarDbHelper;
-import com.appspot.toefl_avatar.app.data.DataContract;
-import com.appspot.toefl_avatar.app.data.QuestionDataSource;
+import com.appspot.toefl_grader.app.data.ToeflAvatarDbHelper;
+import com.appspot.toefl_grader.app.data.DataContract;
+import com.appspot.toefl_grader.app.data.QuestionDataSource;
 
 /**
  * A fragment representing a single Question detail screen.

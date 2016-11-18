@@ -1,11 +1,11 @@
-package com.appspot.toefl_avatar.app;
+package com.appspot.toefl_grader.app;
 
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.util.Log;
 
-import com.appspot.toefl_avatar.app.data.ToeflAvatarDbHelper;
+import com.appspot.toefl_grader.app.data.ToeflAvatarDbHelper;
 
 import java.io.File;
 import java.io.IOException;

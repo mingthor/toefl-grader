@@ -1,4 +1,4 @@
-package com.appspot.toefl_avatar.app;
+package com.appspot.toefl_grader.app;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.appspot.toefl_avatar.app.data.DataContract;
+import com.appspot.toefl_grader.app.data.DataContract;
 
 import java.util.List;
 
