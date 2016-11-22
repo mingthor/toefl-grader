@@ -1,6 +1,4 @@
-package com.appspot.toefl_avatar.app.data;
-
-import android.provider.BaseColumns;
+package com.appspot.toefl_grader.app.data;
 
 import android.provider.BaseColumns;
 

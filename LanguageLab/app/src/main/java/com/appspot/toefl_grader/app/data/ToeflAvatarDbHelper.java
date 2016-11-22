@@ -1,4 +1,4 @@
-package com.appspot.toefl_avatar.app.data;
+package com.appspot.toefl_grader.app.data;
 
 import android.content.ContentValues;
 import android.content.Context;

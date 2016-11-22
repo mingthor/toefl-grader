@@ -1,11 +1,9 @@
-package com.appspot.toefl_avatar.app;
+package com.appspot.toefl_grader.app;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Pair;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,8 +17,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.appspot.toefl_avatar.app.data.DataContract;
-import com.appspot.toefl_avatar.app.data.QuestionDataSource;
+import com.appspot.toefl_grader.app.data.DataContract;
+import com.appspot.toefl_grader.app.data.QuestionDataSource;
 
 
 public class MainActivity extends AppCompatActivity
@@ -120,7 +118,6 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "onOptionsItemSelected"));
             return true;
         }
 
