@@ -1,0 +1,16 @@
+<h2>Update question</h2>
+<form ng-submit="submitUpdate()">
+  <p>
+    <label>Id:</label>
+    <input type="text" ng-model="question.id" disabled="true" />
+  </p>
+  <p>
+    <label>Type:</label>
+    <input type="text" ng-model="question.type" autofocus="true" />
+  </p>
+  <p>
+    <label>Description:</label>
+    <input type="text"  ng-model="question.description" />
+  </p>
+  <input type="submit" class="btn" />
+</form>
