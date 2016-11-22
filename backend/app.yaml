@@ -12,10 +12,20 @@ handlers:
 - url: /rest/.*
   script: main.APP
 
+# The endpoints handler must be mapped to /_ah/spi.
+# Apps send requests to /_ah/api, but the endpoints service handles mapping
+# those requests to /_ah/spi.
+- url: /_ah/spi/.*
+  script: grader.api
+  
 - url: (.*)/
   static_files: app\1/index.html
   upload: app
-
+  
 - url: (.*)
   static_files: app\1
   upload: app
+
+libraries:
+- name: endpoints
+  version: 1.0
