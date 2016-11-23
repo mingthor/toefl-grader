@@ -18,11 +18,6 @@ import webapp2
 
 import model
 
-
-def AsDict(question):
-    return {'id': question.key.id(), 'type': question.type, 'description': question.description}
-
-
 class RestHandler(webapp2.RequestHandler):
 
     def dispatch(self):
@@ -37,8 +32,8 @@ class RestHandler(webapp2.RequestHandler):
 class QueryHandler(RestHandler):
 
     def get(self):
-        questions = model.AllQuestions()
-        r = [AsDict(item) for item in questions]
+        questions = model.Question.query()
+        r = [item.asDict() for item in questions]
         self.SendJson(r)
 
 
@@ -47,7 +42,7 @@ class UpdateHandler(RestHandler):
     def post(self):
         r = json.loads(self.request.body)
         item = model.UpdateQuestion(r['id'], r['type'], r['description'])
-        r = AsDict(item)
+        r = item.asDict()
         self.SendJson(r)
 
 
@@ -56,7 +51,7 @@ class InsertHandler(RestHandler):
     def post(self):
         r = json.loads(self.request.body)
         item = model.InsertQuestion(r['type'], r['description'])
-        r = AsDict(item)
+        r = item.asDict()
         self.SendJson(r)
 
 

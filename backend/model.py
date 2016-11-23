@@ -1,27 +1,26 @@
-# Copyright 2013 Google, Inc
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
 
 from google.appengine.ext import ndb
-
+from protorpc import message_types
+from protorpc import messages
 
 class Question(ndb.Model):
     type = ndb.StringProperty()
     description = ndb.StringProperty()
 
+    def asDict(self):
+        return {'id': self.key.id(), 'type': self.type, 'description': self.description}
 
-def AllQuestions():
-    return Question.query()
+    def asShortDict(self):
+        return {'type': self.type, 'description': self.description}
+
+class QuestionMsg(messages.Message):
+    """Question that stores a message."""
+    type = messages.StringField(1)
+    description = messages.StringField(2)
+
+class QuestionMsgs(messages.Message):
+    """Collection of Questions."""
+    items = messages.MessageField(QuestionMsg, 1, repeated=True)
 
 
 def UpdateQuestion(id, type, description):
