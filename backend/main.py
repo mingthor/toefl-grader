@@ -14,6 +14,8 @@
 
 import json
 
+from google.appengine.api import users
+
 import webapp2
 
 import model
@@ -32,8 +34,16 @@ class RestHandler(webapp2.RequestHandler):
 class QueryHandler(RestHandler):
 
     def get(self):
-        questions = model.Question.query()
-        r = [item.asDict() for item in questions]
+        user = users.get_current_user()
+        if user:
+            questions = model.Question.query()
+            r = { 'questions': [item.asDict() for item in questions],
+                  'url': users.create_logout_url('/'),
+                  'url_linktext': 'Logout' }
+        else:
+            r = { 'url': users.create_login_url('/'),
+                  'url_linktext': 'Login' }
+            
         self.SendJson(r)
 
 
@@ -42,7 +52,7 @@ class UpdateHandler(RestHandler):
     def post(self):
         r = json.loads(self.request.body)
         item = model.UpdateQuestion(r['id'], r['type'], r['description'])
-        r = item.asDict()
+        # r = item.asDict()
         self.SendJson(r)
 
 
@@ -61,10 +71,29 @@ class DeleteHandler(RestHandler):
         r = json.loads(self.request.body)
         model.DeleteQuestion(r['id'])
 
+class AnswerHandler(RestHandler):
 
+    def post(self):
+        r = json.loads(self.request.body)
+        item = model.AnswerQuestion(r['id'], r['content'])
+        r = item.asDict()
+        self.SendJson(r)
+
+    def get(self):
+        answers_query = model.Answer.query(ancestor=model.user_key())
+        answers = answers_query.fetch()
+        for answer in answers:
+            print answer
+        r = [item.asDict() for item in answers]
+        print 'AnswerHander get: '
+        print r
+        self.SendJson(r)
+        
 APP = webapp2.WSGIApplication([
+    ('/', QueryHandler),
     ('/rest/query', QueryHandler),
     ('/rest/insert', InsertHandler),
     ('/rest/delete', DeleteHandler),
     ('/rest/update', UpdateHandler),
+    ('/rest/answer', AnswerHandler),
 ], debug=True)

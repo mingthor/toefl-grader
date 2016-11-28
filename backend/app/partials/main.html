@@ -1,7 +1,9 @@
 <h2>Question list</h2>
+<a href="{{ url }}" class="btn">{{ url_linktext }}</a><br>
 <button ng-click="addNewQuestion()">Add a new question</button>
 <div ng-repeat="question in questions | orderBy:'type' | orderBy:'description'">
   <button ng-click="delete(question)">delete</button>
   <button ng-click="update(question)">update</button>
   {{ $index + 1 }}. <b>{{ question.type }}, {{ question.description }}</b>
+  <button ng-click="answer(question)">answer</button>
 </div>
