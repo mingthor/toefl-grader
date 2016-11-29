@@ -61,7 +61,7 @@ class Answer(ndb.Model):
     content = ndb.StringProperty()
 
     def asDict(self):
-        return {'question type': self.question.get().type, 'question description': self.question.get().description, 'answer content': self.content}
+        return {'question_id':self.question.id(), 'question_type': self.question.get().type, 'question_description': self.question.get().description, 'content': self.content}
     
 def AnswerQuestion(question_id, content):
     question_key = ndb.Key('Question', question_id)

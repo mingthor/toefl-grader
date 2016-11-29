@@ -75,18 +75,14 @@ class AnswerHandler(RestHandler):
 
     def post(self):
         r = json.loads(self.request.body)
-        item = model.AnswerQuestion(r['id'], r['content'])
+        item = model.AnswerQuestion(r['question_id'], r['content'])
         r = item.asDict()
         self.SendJson(r)
 
     def get(self):
         answers_query = model.Answer.query(ancestor=model.user_key())
         answers = answers_query.fetch()
-        for answer in answers:
-            print answer
         r = [item.asDict() for item in answers]
-        print 'AnswerHander get: '
-        print r
         self.SendJson(r)
         
 APP = webapp2.WSGIApplication([

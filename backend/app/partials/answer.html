@@ -1,5 +1,5 @@
 <h2>Answer question</h2>
-<form ng-submit="submitAnswer()">
+<div>
   <p>
     <label>Id:</label>
     <input type="text" ng-model="question.id" disabled="true" />
@@ -12,13 +12,11 @@
     <label>Description:</label>
     <input type="text"  ng-model="question.description" />
   </p>
+</div>
+<form ng-submit="submitAnswer()">
   <p>
-    <label>Answers:</label>
-    <div ng-repeat="answer in anwers | orderBy:'content'">
-      {{ $index + 1 }}. <b>{{ answer.content }}</b>
-    </div>
-    <label>New answer:</label>
-    <input type="text"  ng-model="answer.content" />
+    <label>Answer:</label>
+    <input type="text" ng-model="content" />
   </p>
   <input type="submit" class="btn" />
 </form>

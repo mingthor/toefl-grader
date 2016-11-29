@@ -27,6 +27,11 @@ App.factory('questionService', function($rootScope, $http, $q, $log) {
       deferred.resolve();
       $rootScope.status = '';
   });
+  $http.get('/rest/answer')
+    .success(function(data, status, headers, config) {
+      $rootScope.answers = data;
+      console.log(data);
+    });
   return deferred.promise;
 });
 
@@ -83,9 +88,9 @@ App.controller('MainCtrl', function($scope, $rootScope, $log, $http, $routeParam
     });
   };
 
-  $scope.answer = function(question) {
-    $location.path('/answer/' + question.id);
-  };
+    $scope.answer = function(question) {
+	$location.path('/answer/' + question.id);
+    };
 });
 
 App.controller('InsertCtrl', function($scope, $rootScope, $log, $http, $routeParams, $location, $route) {
@@ -132,25 +137,23 @@ App.controller('UpdateCtrl', function($routeParams, $rootScope, $scope, $log, $h
 
 App.controller('AnswerCtrl', function($routeParams, $rootScope, $scope, $log, $http, $location) {
 
-    for (var i=0; i<$rootScope.questions.length; i++) {
-	if ($rootScope.questions[i].id == $routeParams.id) {
-	    $scope.question = angular.copy($rootScope.questions[i]);
-	    $http.get('/rest/answer', {'id': $scope.question.id})
-		.success(function(data, status, headers, config) {
-		    $rootScope.answers = data;
-		    $rootScope.status = '';
-		});
-	}
+  for (var i=0; i<$rootScope.questions.length; i++) {
+    if ($rootScope.questions[i].id == $routeParams.id) {
+      $scope.question = angular.copy($rootScope.questions[i]);
+      $rootScope.status = '';
     }
+  }
     
   $scope.submitAnswer = function() {
-      $rootScope.status = 'Recording an answer to question ' + $scope.question.id + '...';
-      var answer = $scope.question;
-      answer['content'] = 'Hello World Answer';
-      $http.post('/rest/answer', answer)
-	  .success(function(data, status, headers, config) {
-	      $rootScope.status = '';
-	  });
-      $location.path('/');
+    $rootScope.status = 'Recording an answer to question ' + $scope.question.id + '...';
+    var answer = {
+      question_id: $scope.question.id,
+      content: $scope.content
+    }
+    $http.post('/rest/answer', answer)
+      .success(function(data, status, headers, config) {
+	$rootScope.status = '';
+      });
+    $location.path('/');
   };
 });
