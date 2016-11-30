@@ -34,15 +34,16 @@ class RestHandler(webapp2.RequestHandler):
 class QueryHandler(RestHandler):
 
     def get(self):
+        questions = model.Question.query()
+        r = { 'questions': [item.asDict() for item in questions] }
         user = users.get_current_user()
+
         if user:
-            questions = model.Question.query()
-            r = { 'questions': [item.asDict() for item in questions],
-                  'url': users.create_logout_url('/'),
-                  'url_linktext': 'Logout' }
+            r['url'] = users.create_logout_url('/')
+            r['url_linktext'] = 'Logout'
         else:
-            r = { 'url': users.create_login_url('/'),
-                  'url_linktext': 'Login' }
+            r['url'] = users.create_login_url('/')
+            r['url_linktext'] = 'Login'
             
         self.SendJson(r)
 
@@ -59,11 +60,15 @@ class UpdateHandler(RestHandler):
 class InsertHandler(RestHandler):
 
     def post(self):
-        r = json.loads(self.request.body)
-        item = model.InsertQuestion(r['type'], r['description'])
-        r = item.asDict()
+        r = {}
+        user = users.get_current_user()
+        if user:
+            if users.is_current_user_admin():
+                r = json.loads(self.request.body)
+                item = model.InsertQuestion(r['type'], r['description'])
+                r = item.asDict()
         self.SendJson(r)
-
+        
 
 class DeleteHandler(RestHandler):
 

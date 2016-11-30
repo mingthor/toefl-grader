@@ -15,10 +15,16 @@ class Question(ndb.Model):
     def asShortDict(self):
         return {'type': self.type, 'description': self.description}
 
+    def asQuestionMsg(self):
+        return QuestionMsg(type=self.type,
+                           description=self.description,
+                           websafeKey=self.key.urlsafe())
+
 class QuestionMsg(messages.Message):
     """Question that stores a message."""
     type = messages.StringField(1)
     description = messages.StringField(2)
+    websafeKey = messages.StringField(3)
 
 class QuestionMsgs(messages.Message):
     """Collection of Questions."""
@@ -30,12 +36,16 @@ def UpdateQuestion(id, type, description):
     question.put()
     return question
 
-
+#TODO(ming): Consolidate these insert functions
 def InsertQuestion(type, description):
     question = Question(type=type, description=description)
     question.put()
     return question
 
+def InsertNewQuestion(questionMsg):
+    question = Question(type=questionMsg.type, description=questionMsg.description)
+    question.put()
+    return question.asQuestionMsg()
 
 def DeleteQuestion(id):
     key = ndb.Key('Question', id)
@@ -62,6 +72,12 @@ class Answer(ndb.Model):
 
     def asDict(self):
         return {'question_id':self.question.id(), 'question_type': self.question.get().type, 'question_description': self.question.get().description, 'content': self.content}
+
+class AnswerMsg(messages.Message):
+    """Answer that stores a message."""
+    websafeQuestionKey = messages.StringField(1)
+    content = messages.StringField(2)
+    websafeKey = messages.StringField(3)
     
 def AnswerQuestion(question_id, content):
     question_key = ndb.Key('Question', question_id)
