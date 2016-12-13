@@ -63,19 +63,16 @@ def user_key(user_name=NAME):
     return ndb.Key('User', user_name)
     
 class User(ndb.Model):
-    name = ndb.StringProperty()
     identity = ndb.StringProperty()
     email = ndb.StringProperty()
     answers = ndb.StringProperty(repeated=True)
     def asUserMsg(self):
-        return UserMsg(name=self.name,
-                       identity=self.identity,
+        return UserMsg(identity=self.identity,
                        email=self.email,
                        answers=self.answers)
 
 class UserMsg(messages.Message):
     """User profile that stores a message."""
-    name = messages.StringField(1)
     identity = messages.StringField(2)
     email = messages.StringField(3)
     answers = messages.StringField(4, repeated=True)

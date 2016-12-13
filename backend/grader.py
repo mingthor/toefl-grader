@@ -46,7 +46,7 @@ class GraderApi(remote.Service):
         if not profile:
             profile = model.User(
                 key = self.user_key(user),
-                name = user.nickname(),
+                identity = user.nickname(),
                 email= user.email())
             profile.put()
         return profile.asUserMsg()
@@ -173,6 +173,30 @@ class GraderApi(remote.Service):
         answer.put()
         return answer.asAnswerMsg()
 
+    @endpoints.method(
+        ANSWER_POST_REQUEST,
+        model.AnswerMsgs,
+        path='question/{websafeQuestionKey}/answer',
+        http_method='GET',
+        name='queryAnswers')
+    def queryAnswers(self, request):
+        """Get the answers to a specific question"""
+        user = endpoints.get_current_user()
+        if not user:
+            raise endpoints.UnauthorizedException('Authorization required')
+
+        question = ndb.Key(urlsafe=request.websafeQuestionKey).get()
+        if not question:
+            raise endpoints.NotFoundException(
+                'No question found with key: %s' % requestion.websafeQuestionKey)
+        
+        answers = model.Answer.query(ancestor=self.user_key(user)).filter(
+            model.Answer.question == question.key)
+        
+        return model.AnswerMsgs(items=[
+            answer.asAnswerMsg() for answer in answers
+        ])
+        
     @endpoints.method(
         message_types.VoidMessage,
         model.AnswerMsgs,
