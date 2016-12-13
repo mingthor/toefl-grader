@@ -5,6 +5,10 @@ from protorpc import messages
 
 NAME = 'Ming Gao'
 
+class BooleanMessage(messages.Message):
+    """BooleanMessage-- outbound Boolean value message"""
+    data = messages.BooleanField(1)
+    
 class Question(ndb.Model):
     type = ndb.StringProperty()
     description = ndb.StringProperty()
@@ -49,7 +53,8 @@ def InsertNewQuestion(questionMsg):
 
 def DeleteQuestion(id):
     key = ndb.Key('Question', id)
-    key.delete()
+    if key.get():
+        key.delete()
 
 def question_key(id):
     return ndb.Key('Question', id)
@@ -61,23 +66,44 @@ class User(ndb.Model):
     name = ndb.StringProperty()
     identity = ndb.StringProperty()
     email = ndb.StringProperty()
+    answers = ndb.StringProperty(repeated=True)
+    def asUserMsg(self):
+        return UserMsg(name=self.name,
+                       identity=self.identity,
+                       email=self.email,
+                       answers=self.answers)
 
-    @property
-    def query_answers(self):
-        return Answer.query(ancestor=self.key)
+class UserMsg(messages.Message):
+    """User profile that stores a message."""
+    name = messages.StringField(1)
+    identity = messages.StringField(2)
+    email = messages.StringField(3)
+    answers = messages.StringField(4, repeated=True)
     
 class Answer(ndb.Model):
     question = ndb.KeyProperty(Question)
     content = ndb.StringProperty()
+    userId = ndb.StringProperty()
 
     def asDict(self):
         return {'question_id':self.question.id(), 'question_type': self.question.get().type, 'question_description': self.question.get().description, 'content': self.content}
+
+    def asAnswerMsg(self):
+        return AnswerMsg(websafeQuestionKey=self.question.urlsafe(),
+                         content=self.content,
+                         userId=self.userId,
+                         websafeKey=self.key.urlsafe())
 
 class AnswerMsg(messages.Message):
     """Answer that stores a message."""
     websafeQuestionKey = messages.StringField(1)
     content = messages.StringField(2)
-    websafeKey = messages.StringField(3)
+    userId = messages.StringField(3)
+    websafeKey = messages.StringField(4)
+
+class AnswerMsgs(messages.Message):
+    """Collection of Answers."""
+    items = messages.MessageField(AnswerMsg, 1, repeated=True)
     
 def AnswerQuestion(question_id, content):
     question_key = ndb.Key('Question', question_id)

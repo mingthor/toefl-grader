@@ -62,11 +62,12 @@ class InsertHandler(RestHandler):
     def post(self):
         r = {}
         user = users.get_current_user()
-        if user:
-            if users.is_current_user_admin():
-                r = json.loads(self.request.body)
-                item = model.InsertQuestion(r['type'], r['description'])
-                r = item.asDict()
+        if not user:
+            raise Exception("Unauthorized user!")
+        #TODO: if not users.is_current_user_admin(), raise exception
+        r = json.loads(self.request.body)
+        item = model.InsertQuestion(r['type'], r['description'])
+        r = item.asDict()
         self.SendJson(r)
         
 
