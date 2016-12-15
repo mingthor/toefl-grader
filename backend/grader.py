@@ -6,6 +6,10 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 import model
 
+from settings import WEB_CLIENT_ID
+from settings import ANDROID_CLIENT_ID
+from settings import ANDROID_AUDIENCE
+
 ANSWER_GET_REQUEST = endpoints.ResourceContainer(
     message_types.VoidMessage,
     websafeAnswerKey=messages.StringField(1),
@@ -23,7 +27,8 @@ QUESTION_POST_REQUEST = endpoints.ResourceContainer(
     websafeQuestionKey=messages.StringField(1),
 )
 
-@endpoints.api(name='toefl_grader', version='v1')
+@endpoints.api(name='toefl_grader', version='v1', audiences=[ANDROID_AUDIENCE],
+    allowed_client_ids=[WEB_CLIENT_ID, API_EXPLORER_CLIENT_ID, ANDROID_CLIENT_ID])
 class GraderApi(remote.Service):
 
     def user_key(self, user):
