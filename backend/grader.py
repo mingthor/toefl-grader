@@ -9,6 +9,7 @@ import model
 from settings import WEB_CLIENT_ID
 from settings import ANDROID_CLIENT_ID
 from settings import ANDROID_AUDIENCE
+API_EXPLORER_CLIENT_ID = endpoints.API_EXPLORER_CLIENT_ID
 
 ANSWER_GET_REQUEST = endpoints.ResourceContainer(
     message_types.VoidMessage,
