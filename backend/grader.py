@@ -88,7 +88,7 @@ class GraderApi(remote.Service):
             raise endpoints.UnauthorizedException('Authorization required')
         #if not users.is_current_user_admin():
         #    raise endpoints.UnauthorizedException('Only administrator can access this API')
-        return model.InsertNewQuestion(request)
+        return model.InsertQuestion(request)
     
     @endpoints.method(
         message_types.VoidMessage,

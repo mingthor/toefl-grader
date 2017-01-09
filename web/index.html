@@ -66,7 +66,7 @@
   <script>
     // Initialize Firebase
     var config = {
-    apiKey: "AIzaSyDbahnU4SCdJdHQ8NjcLN0jjopl8HbGcT4",
+    apiKey: "AIzaSyDpReGmamWkRD72aNp2BAoRf4Y54Tpr0yk",
     authDomain: "toefl-grader.firebaseapp.com",
     databaseURL: "https://toefl-grader.firebaseio.com",
     storageBucket: "toefl-grader.appspot.com",
@@ -74,6 +74,13 @@
     };
     firebase.initializeApp(config);
   </script>
+  <script>
+    // Initializes the Google API JavaScript client
+    function init() {
+      gapi.client.load('toefl_grader', 'v1', null, '//' + window.location.host + '/_ah/api');
+    };
+  </script>
+  <script src="https://apis.google.com/js/client.js?onload=init"></script>
   <script src="js/main.js"></script>
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>

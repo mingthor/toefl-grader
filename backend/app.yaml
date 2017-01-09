@@ -3,37 +3,41 @@ api_version: 1
 threadsafe: yes
 
 handlers:
-- url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
+
+- url: /img/favicon\.ico
+  static_files: ../web/img/favicon.ico
+  upload: \.\./web/img/favicon\.ico
 
 - url: /js
-  static_dir: app/js
+  static_dir: ../web/js
 
+- url: /img
+  static_dir: ../web/img
+  
 - url: /css
-  static_dir: app/css
+  static_dir: ../web/css
 
 - url: /partials
-  static_dir: app/partials
+  static_dir: ../web/partials
 
 - url: /
-  static_files: app/index.html
-  upload: app/index\.html
+  static_files: ../web/index.html
+  upload: \.\./web/index\.html
   secure: always
   
-# The endpoints handler must be mapped to /_ah/spi.
-# Apps send requests to /_ah/api, but the endpoints service handles mapping
-# those requests to /_ah/spi.
-- url: /_ah/spi/.*
+# The endpoints handler must be mapped to /_ah/api.
+- url: /_ah/api/.*
   script: grader.api
-  secure: always
-
-- url: /rest/.*
-  script: main.APP
 
 libraries:
-- name: webapp2
-  version: latest
-  
-- name: endpoints
-  version: 1.0
+- name: pycrypto
+  version: 2.6
+- name: ssl
+  version: 2.7.11
+
+env_variables:
+  # The following values are to be replaced by information from the output of
+  # 'gcloud service-management deploy swagger.json' command.
+  ENDPOINTS_SERVICE_NAME: grader-api.endpoints.toefl-grader.cloud.goog
+  ENDPOINTS_SERVICE_VERSION: 2017-01-09r0
+  FIREBASE_PROJECT_ID: 'toefl-grader'

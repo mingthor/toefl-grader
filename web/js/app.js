@@ -15,6 +15,10 @@ var app = angular.module('graderApp', ['ngRoute']);
 
 app.config(function ($routeProvider) {
   $routeProvider
+    .when('/question', {
+      templateUrl: '/partials/show_questions.html',
+      controller: 'ShowQuestionCtrl'
+    })
     .when('/', {
       templateUrl: '/partials/home.html'
     })

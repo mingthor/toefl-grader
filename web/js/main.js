@@ -18,7 +18,6 @@ function TOEFLGrader() {
 
 // Sets up shortcuts to Firebase features and initiate firebase auth.
 TOEFLGrader.prototype.initFirebase = function() {
-  // TODO(DEVELOPER): Initialize Firebase.
   // Shortcuts to Firebase SDK features.
   this.auth = firebase.auth();
   this.database = firebase.database();
@@ -27,7 +26,7 @@ TOEFLGrader.prototype.initFirebase = function() {
   this.auth.onAuthStateChanged(this.onAuthStateChanged.bind(this));
 };
 
-// Signs-in Friendly Chat.
+// Signs-in TOEFL Grader.
 TOEFLGrader.prototype.signIn = function() {
   // Sign in Firebase using popup auth and Google as the identity provider.
   var provider = new firebase.auth.GoogleAuthProvider();
@@ -42,6 +41,7 @@ TOEFLGrader.prototype.signOut = function() {
 
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
 TOEFLGrader.prototype.onAuthStateChanged = function(user) {
+  
   if (user) { // User is signed in!
     // Get profile pic and user's name from the Firebase user object.
     var profilePicUrl = user.photoURL;   // TODO(DEVELOPER): Get profile pic.

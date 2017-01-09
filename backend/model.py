@@ -3,8 +3,6 @@ from google.appengine.ext import ndb
 from protorpc import message_types
 from protorpc import messages
 
-NAME = 'Ming Gao'
-
 class BooleanMessage(messages.Message):
     """BooleanMessage-- outbound Boolean value message"""
     data = messages.BooleanField(1)
@@ -40,13 +38,7 @@ def UpdateQuestion(id, type, description):
     question.put()
     return question
 
-#TODO(ming): Consolidate these insert functions
-def InsertQuestion(type, description):
-    question = Question(type=type, description=description)
-    question.put()
-    return question
-
-def InsertNewQuestion(questionMsg):
+def InsertQuestion(questionMsg):
     question = Question(type=questionMsg.type, description=questionMsg.description)
     question.put()
     return question.asQuestionMsg()
@@ -58,9 +50,6 @@ def DeleteQuestion(id):
 
 def question_key(id):
     return ndb.Key('Question', id)
-    
-def user_key(user_name=NAME):
-    return ndb.Key('User', user_name)
     
 class User(ndb.Model):
     identity = ndb.StringProperty()
@@ -102,8 +91,3 @@ class AnswerMsgs(messages.Message):
     """Collection of Answers."""
     items = messages.MessageField(AnswerMsg, 1, repeated=True)
     
-def AnswerQuestion(question_id, content):
-    question_key = ndb.Key('Question', question_id)
-    answer = Answer(parent=user_key(), question=question_key, content=content)
-    answer.put()
-    return answer
