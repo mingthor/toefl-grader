@@ -28,8 +28,7 @@ QUESTION_POST_REQUEST = endpoints.ResourceContainer(
     websafeQuestionKey=messages.StringField(1),
 )
 
-@endpoints.api(name='toefl_grader', version='v1', audiences=[ANDROID_AUDIENCE],
-    allowed_client_ids=[WEB_CLIENT_ID, API_EXPLORER_CLIENT_ID, ANDROID_CLIENT_ID])
+@endpoints.api(name='toefl_grader', version='v1')
 class GraderApi(remote.Service):
 
     def user_key(self, user):

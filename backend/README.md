@@ -11,3 +11,6 @@ gcloud service-management deploy toefl_graderv1openapi.json
 
 To deploy the API:
 gcloud app deploy
+
+To test API:
+curl -H "Content-Type: application/json" -X GET https://toefl-grader.appspot.com/_ah/api/toefl_grader/v1/question

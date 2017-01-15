@@ -1,0 +1,343 @@
+{
+  "basePath": "/_ah/api",
+  "consumes": [
+    "application/json"
+  ],
+  "definitions": {
+    "ModelAnswerMsg": {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "websafeKey": {
+          "type": "string"
+        },
+        "websafeQuestionKey": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ModelAnswerMsgs": {
+      "properties": {
+        "items": {
+          "description": "Answer that stores a message.",
+          "items": {
+            "$ref": "#/definitions/ModelAnswerMsg"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ModelBooleanMessage": {
+      "properties": {
+        "data": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "ModelQuestionMsg": {
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "websafeKey": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ModelQuestionMsgs": {
+      "properties": {
+        "items": {
+          "description": "Question that stores a message.",
+          "items": {
+            "$ref": "#/definitions/ModelQuestionMsg"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ModelUserMsg": {
+      "properties": {
+        "answers": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "email": {
+          "type": "string"
+        },
+        "identity": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ProtorpcMessagesCombinedContainer": {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        },
+        "websafeKey": {
+          "type": "string"
+        },
+        "websafeQuestionKey": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "host": "grader-api.endpoints.toefl-grader.cloud.goog",
+  "info": {
+    "title": "toefl_grader",
+    "version": "v1"
+  },
+  "paths": {
+    "/toefl_grader/v1/addNewQuestion": {
+      "post": {
+        "operationId": "GraderApi_addNewQuestion",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ModelQuestionMsg"
+            }
+          }
+        }
+      }
+    },
+    "/toefl_grader/v1/answer": {
+      "get": {
+        "operationId": "GraderApi_getAnswers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ModelAnswerMsgs"
+            }
+          }
+        }
+      }
+    },
+    "/toefl_grader/v1/answer/{websafeAnswerKey}": {
+      "delete": {
+        "operationId": "GraderApi_deleteAnswer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "websafeAnswerKey",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ModelBooleanMessage"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "GraderApi_getAnswer",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "websafeAnswerKey",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ModelAnswerMsg"
+            }
+          }
+        }
+      }
+    },
+    "/toefl_grader/v1/profile": {
+      "get": {
+        "operationId": "GraderApi_getProfile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ModelUserMsg"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "GraderApi_register",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ModelUserMsg"
+            }
+          }
+        }
+      }
+    },
+    "/toefl_grader/v1/question": {
+      "get": {
+        "operationId": "GraderApi_getQuestions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ModelQuestionMsgs"
+            }
+          }
+        }
+      }
+    },
+    "/toefl_grader/v1/question/{websafeQuestionKey}": {
+      "delete": {
+        "operationId": "GraderApi_deleteQuestion",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "websafeQuestionKey",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ModelBooleanMessage"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "GraderApi_getQuestion",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "websafeQuestionKey",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ModelQuestionMsg"
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "GraderApi_updateQuestion",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "websafeQuestionKey",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ModelQuestionMsg"
+            }
+          }
+        }
+      }
+    },
+    "/toefl_grader/v1/question/{websafeQuestionKey}/answer": {
+      "get": {
+        "operationId": "GraderApi_queryAnswers",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "content",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "websafeKey",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "userId",
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "websafeQuestionKey",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ModelAnswerMsgs"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "GraderApi_answerQuestion",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "websafeQuestionKey",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A successful response",
+            "schema": {
+              "$ref": "#/definitions/ModelAnswerMsg"
+            }
+          }
+        }
+      }
+    }
+  },
+  "produces": [
+    "application/json"
+  ],
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {
+    "google_id_token": {
+      "authorizationUrl": "",
+      "flow": "implicit",
+      "type": "oauth2",
+      "x-issuer": "accounts.google.com",
+      "x-jwks_uri": "https://www.googleapis.com/oauth2/v1/certs"
+    }
+  },
+  "swagger": "2.0"
+}

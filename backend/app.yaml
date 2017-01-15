@@ -1,29 +1,9 @@
 runtime: python27
 api_version: 1
 threadsafe: yes
+service: backend
 
 handlers:
-
-- url: /img/favicon\.ico
-  static_files: ../web/img/favicon.ico
-  upload: \.\./web/img/favicon\.ico
-
-- url: /js
-  static_dir: ../web/js
-
-- url: /img
-  static_dir: ../web/img
-  
-- url: /css
-  static_dir: ../web/css
-
-- url: /partials
-  static_dir: ../web/partials
-
-- url: /
-  static_files: ../web/index.html
-  upload: \.\./web/index\.html
-  secure: always
   
 # The endpoints handler must be mapped to /_ah/api.
 - url: /_ah/api/.*
@@ -39,5 +19,7 @@ env_variables:
   # The following values are to be replaced by information from the output of
   # 'gcloud service-management deploy swagger.json' command.
   ENDPOINTS_SERVICE_NAME: grader-api.endpoints.toefl-grader.cloud.goog
-  ENDPOINTS_SERVICE_VERSION: 2017-01-09r0
+  ENDPOINTS_SERVICE_VERSION: 2017-01-15r0
+
+  # Replace with your Firebase project ID.
   FIREBASE_PROJECT_ID: 'toefl-grader'

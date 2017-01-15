@@ -5,13 +5,13 @@
  * @ngdoc object
  * @name graderApp
  * @requires $routeProvider
- * @requires controllers
+ * @requires graderControllers
  *
  * @description
  * Root app, which routes and specifies the partial html and controller depending on the url requested.
  *
  */
-var app = angular.module('graderApp', ['ngRoute']);
+var app = angular.module('graderApp', ['graderControllers', 'ngRoute', 'ui.bootstrap']);
 
 app.config(function ($routeProvider) {
   $routeProvider

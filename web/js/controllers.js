@@ -8,26 +8,24 @@
  * Angular module for controllers.
  *
  */
- var app = angular.module('graderApp');
 
-app.controller('ShowQuestionCtrl', function ($scope, $log) {
+var graderApp = graderApp || {};
+graderApp.controllers = angular.module('graderControllers', ['ui.bootstrap']);
+
+graderApp.controllers.controller('ShowQuestionCtrl', ['$scope', function ($scope) {
   $scope.questions = [{'number': 1, 'title': 'A place', 'type':'Familiar Topic'}];
-  
-  $scope.getQuestions();
-
-  $scope.getQuestions = function () {
+  $scope.init = function () {
+    console.log("ShowQuestionCtrl init call getQuestion Endpoint API");
     gapi.client.toefl_grader.getQuestions().
       execute(function (resp) {
         $scope.$apply(function () {
           if (resp.error) {
             // The request has failed.
             var errorMessage = resp.error.message || '';
-            $scope.messages = 'Failed to query conferences : ' + errorMessage;
-            $log.error($scope.messages);
+            console.log("Failed to get questions");
           } else {
             // The request has succeeded.
-            $scope.messages = 'Query succeeded';
-            $log.info($scope.messages);
+            console.log("Get questions succeeded");
 
             $scope.questions = [];
             angular.forEach(resp.items, function (question) {
@@ -36,6 +34,5 @@ app.controller('ShowQuestionCtrl', function ($scope, $log) {
           }
         });
       });
-  }
-  
-})
+  };
+}]);
