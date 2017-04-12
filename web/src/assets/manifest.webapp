@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "name": "TOEFL Grader",
+  "launch_path": "/index.html",
+  "description": "TOEFL iBT online practice webapp",
+  "developer": {
+    "name": "eGrader inc.",
+    "url": "https://toefl-grader.firebaseapp.com"
+  },
+  "installs_allowed_from": [
+    "*"
+  ],
+  "default_locale": "en",
+  "permissions": {
+  },
+  "locales": {
+    "en": {
+      "name": "TOEFL Grader",
+      "description": "TOEFL iBT online practice"
+    }
+  }
+}

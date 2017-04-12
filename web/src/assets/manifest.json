@@ -1,0 +1,7 @@
+{
+  "name": "TOEFL Grader",
+  "short_name": "TOEFL Grader",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "orientation": "portrait"
+}
