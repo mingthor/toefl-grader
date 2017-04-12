@@ -1,18 +1,4 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 import { Component, Inject } from '@angular/core';
 import { AngularFire, FirebaseApp, FirebaseListObservable, FirebaseAuthState } from 'angularfire2';
 import { MdSnackBar } from '@angular/material';
@@ -28,7 +14,7 @@ const PROFILE_PLACEHOLDER_IMAGE_URL = '/assets/images/profile_placeholder.png';
 export class AppComponent {
   currentUser: FirebaseAuthState;
   fbApp: any;
-  messages: FirebaseListObservable<any>;
+  questions: FirebaseListObservable<any>;
   profilePicStyles: {};
   topics = '';
   value = '';
@@ -43,20 +29,20 @@ export class AppComponent {
           'background-image':  `url(${this.currentUser.auth.photoURL})`
         };
 
-        // We load currently existing chat messages.
-        this.messages = this.af.database.list('/messages', {
+        // We load currently existing questions.
+        this.questions = this.af.database.list('/questions', {
           query: {
             limitToLast: 12
           }
         });
-        this.messages.subscribe((messages) => {
+        this.questions.subscribe((questions) => {
           // Calculate list of recently discussed topics
           const topicsMap = {};
           const topics = [];
           let hasEntities = false;
-          messages.forEach((message) => {
-            if (message.entities) {
-              for (let entity of message.entities) {
+          questions.forEach((question) => {
+            if (question.entities) {
+              for (let entity of question.entities) {
                 if (!topicsMap.hasOwnProperty(entity.name)) {
                   topicsMap[entity.name] = 0
                 }
@@ -73,11 +59,11 @@ export class AppComponent {
             this.topics = topics.map((topic) => topic.name).join(', ');
           }
 
-          // Make sure new message scroll into view
+          // Make sure new question scroll into view
           setTimeout(() => {
-            const messageList = document.getElementById('messages');
-            messageList.scrollTop = messageList.scrollHeight;
-            document.getElementById('message').focus();
+            const questionList = document.getElementById('questions');
+            questionList.scrollTop = questionList.scrollHeight;
+            document.getElementById('question').focus();
           }, 500);
         });
 
@@ -121,87 +107,6 @@ export class AppComponent {
 
     return false;
   };
-
-  // TODO: Refactor into text message form component
-  saveMessage(event: any, el: HTMLInputElement) {
-    event.preventDefault();
-
-    if (this.value && this.checkSignedInWithMessage()) {
-      // Add a new message entry to the Firebase Database.
-      const messages = this.af.database.list('/messages');
-      messages.push({
-        name: this.currentUser.auth.displayName,
-        text: this.value,
-        photoUrl: this.currentUser.auth.photoURL || PROFILE_PLACEHOLDER_IMAGE_URL
-      }).then(() => {
-        // Clear message text field and SEND button state.
-        el.value = '';
-      }).catch((err) => {
-        this.snackBar.open('Error writing new message to Firebase Database.', null, {
-          duration: 5000
-        });
-        console.error(err);
-      });
-    }
-  }
-
-  // TODO: Refactor into image message form component
-  saveImageMessage(event: any) {
-    event.preventDefault();
-    const file = event.target.files[0];
-
-    // Clear the selection in the file picker input.
-    const imageForm = <HTMLFormElement>document.getElementById('image-form');
-    imageForm.reset();
-
-    // Check if the file is an image.
-    if (!file.type.match('image.*')) {
-      this.snackBar.open('You can only share images', null, {
-        duration: 5000
-      });
-      return;
-    }
-
-    // Check if the user is signed-in
-    if (this.checkSignedInWithMessage()) {
-
-      // We add a message with a loading icon that will get updated with the shared image.
-      const messages = this.af.database.list('/messages');
-      messages.push({
-        name: this.currentUser.auth.displayName,
-        imageUrl: LOADING_IMAGE_URL,
-        photoUrl: this.currentUser.auth.photoURL || PROFILE_PLACEHOLDER_IMAGE_URL
-      }).then((data) => {
-        // Upload the image to Cloud Storage.
-        const filePath = `${this.currentUser.uid}/${data.key}/${file.name}`;
-        return this.fbApp.storage().ref(filePath).put(file)
-          .then((snapshot) => {
-            // Get the file's Storage URI and update the chat message placeholder.
-            const fullPath = snapshot.metadata.fullPath;
-            const imageUrl = this.fbApp.storage().ref(fullPath).toString();
-            return this.fbApp.storage().refFromURL(imageUrl).getMetadata();
-          }).then((metadata) => {
-            // TODO: Instead of saving the download URL, save the GCS URI and
-            //       dynamically load the download URL when displaying the image
-            //       message.
-            return data.update({
-              imageUrl: metadata.downloadURLs[0]
-            });
-          });
-      }).catch((err) => {
-        this.snackBar.open('There was an error uploading a file to Cloud Storage.', null, {
-          duration: 5000
-        });
-        console.error(err);
-      });
-    }
-  }
-
-  // TODO: Refactor into image message form component
-  onImageClick(event: any) {
-    event.preventDefault();
-    document.getElementById('mediaCapture').click();
-  }
 
   // Saves the messaging device token to the datastore.
   saveMessagingDeviceToken() {

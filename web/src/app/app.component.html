@@ -3,7 +3,7 @@
   <header class="mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
     <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
       <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-        <h3><i class="material-icons">chat_bubble_outline</i> Friendly Chat</h3>
+        <h3><i class="material-icons">language</i> TOEFL Grader</h3>
       </div>
       <div id="user-container">
         <div *ngIf="currentUser" id="user-pic" [ngStyle]="profilePicStyles"></div>
@@ -19,42 +19,21 @@
   </header>
 
   <main class="mdl-layout__content mdl-color--grey-100">
-    <div id="messages-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
-
-      <!-- Messages container -->
-      <div id="messages-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--6-col-tablet mdl-cell--6-col-desktop">
+    <div id="questions-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
+      <!-- Questions container -->
+      <div id="questions-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
         <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-          <div id="messages">
-            <span id="message-filler"></span>
-            <div class="message-container" *ngFor="let message of messages | async">
-              <div class="spacing">
-                <div class="pic" [style.background-image]="'url(' + message.photoUrl + ')'"></div>
+          <div id="questions">
+            <span id="question-filler"></span>
+            <div class="question-container" *ngFor="let question of questions | async" >
+              <div class="question">
+                <span *ngIf="question.id">{{ question.id }}.</span>
+                <span *ngIf="question.text"><a>{{ question.text }}/</a></span>
+                <img *ngIf="question.imageUrl" [src]="question.imageUrl + (question.moderated ? '&amp;moderated=1' : '')">
               </div>
-              <div class="message">
-                <span *ngIf="message.text" [style]="message.sentiment | stylize">{{ message.text }}</span>
-                <img *ngIf="message.imageUrl" [src]="message.imageUrl + (message.moderated ? '&amp;moderated=1' : '')">
-              </div>
-              <div class="name">{{ message.name }}</div>
+              <div class="type">{{ question.type }}</div>
             </div>
           </div>
-          <div *ngIf="topics"><em>Recent topics: {{ topics }}</em></div>
-          <form id="message-form" (submit)="saveMessage($event, box)">
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input #box class="mdl-textfield__input" type="text" id="message"
-                (keyup)="update(box.value)" (blur)="update(box.value)"
-                placeholder="Message...">
-            </div>
-            <button id="submit" [disabled]="!value" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-              Send
-            </button>
-          </form>
-          <form id="image-form" action="#">
-            <input id="mediaCapture" type="file" accept="image/*,capture=camera" (change)="saveImageMessage($event)">
-            <button id="submitImage" title="Add an image" (click)="onImageClick($event)"
-              class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
-              <i class="material-icons">image</i>
-            </button>
-          </form>
         </div>
       </div>
     </div>

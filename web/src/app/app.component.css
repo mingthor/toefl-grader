@@ -1,27 +1,13 @@
-/**
- * Copyright 2017 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-main, #messages-card {
+
+main, #questions-card {
   height: 100%;
   padding-bottom: 0;
 }
-#messages-card-container {
+#questions-card-container {
   height: calc(100% - 150px);
   padding-bottom: 0;
 }
-#messages-card {
+#questions-card {
   margin-top: 15px;
 }
 .mdl-layout__header-row span {
@@ -47,18 +33,18 @@ main, #messages-card {
   padding-top: 0;
   padding-bottom: 0;
 }
-#messages {
+#questions {
   overflow-y: auto;
   margin-bottom: 10px;
   height: calc(100% - 80px);
 }
-#message-filler {
+#question-filler {
   flex-grow: 1;
 }
-.message-container:first-of-type {
+.question-container:first-of-type {
   border-top-width: 0;
 }
-.message-container {
+.question-container {
   display: block;
   margin-top: 10px;
   border-top: 1px solid #f3f3f3;
@@ -66,27 +52,15 @@ main, #messages-card {
   /*opacity: 0;*/
   transition: opacity 1s ease-in-out;
 }
-.message-container.visible {
+.question-container.visible {
   opacity: 1;
 }
-.message-container .pic {
-  background-image: url('/assets/images/profile_placeholder.png');
-  background-repeat: no-repeat;
-  width: 30px;
-  height: 30px;
-  background-size: 30px;
-  border-radius: 20px;
-}
-.message-container .spacing {
-  display: table-cell;
-  vertical-align: top;
-}
-.message-container .message {
+.question-container .question {
   display: table-cell;
   width: calc(100% - 40px);
   padding: 5px 0 5px 10px;
 }
-.message-container .name {
+.question-container .text {
   display: inline-block;
   width: 100%;
   padding-left: 40px;
@@ -94,25 +68,6 @@ main, #messages-card {
   font-style: italic;
   font-size: 12px;
   box-sizing: border-box;
-}
-#message-form {
-  display: flex;
-  flex-direction: row;
-  width: calc(100% - 48px);
-  float: left;
-}
-#image-form {
-  display: flex;
-  flex-direction: row;
-  width: 48px;
-  float: right;
-}
-#message-form .mdl-textfield {
-  width: calc(100% - 100px);
-}
-#message-form button, #image-form button {
-  width: 100px;
-  margin: 15px 0 0 10px;
 }
 .mdl-card {
   min-height: 0;
@@ -149,20 +104,9 @@ main, #messages-card {
   padding-right: 10px;
   padding-left: 20px;
 }
-#image-form #submitImage {
-  width: auto;
-  padding: 0 6px 0 1px;
-  min-width: 0;
-}
-#image-form #submitImage .material-icons {
-  top: -1px;
-}
-.message img {
+.question img {
   max-width: 300px;
-  max-height: 200px;
-}
-#mediaCapture {
-  display: none;
+  max-height: 100px;
 }
 @media screen and (max-width: 610px) {
   header {
@@ -182,12 +126,6 @@ main, #messages-card {
     height: 33px;
     background-size: 33px;
   }
-}
-.mdl-textfield__label:after {
-  background-color: #0288D1;
-}
-.mdl-textfield--floating-label.is-focused .mdl-textfield__label {
-  color: #0288D1;
 }
 .mdl-button .material-icons {
   top: -1px;
