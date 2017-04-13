@@ -1,7 +1,8 @@
 
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFire, FirebaseApp, FirebaseObjectObservable, FirebaseListObservable, FirebaseAuthState } from 'angularfire2';
 import { MdSnackBar } from '@angular/material';
+import { QuestionService } from './question.service';
 
 const LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
 const PROFILE_PLACEHOLDER_IMAGE_URL = '/assets/images/profile_placeholder.png';
@@ -9,22 +10,18 @@ const PROFILE_PLACEHOLDER_IMAGE_URL = '/assets/images/profile_placeholder.png';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [QuestionService]
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   currentUser: FirebaseAuthState;
   fbApp: any;
   questions: FirebaseListObservable<any>;
   selectedQuestion: FirebaseObjectObservable<any>;
   profilePicStyles: {};
-  topics = '';
   value = '';
 
-  onSelect(question : FirebaseObjectObservable<any>): void {
-    this.selectedQuestion = question;
-  }
-  
-  constructor(public af: AngularFire, @Inject(FirebaseApp) fbApp: any, public snackBar: MdSnackBar) {
+  constructor(public af: AngularFire, @Inject(FirebaseApp) fbApp: any, public snackBar: MdSnackBar, private questionService: QuestionService) {
     this.fbApp = fbApp;
     this.af.auth.subscribe((user: FirebaseAuthState) => {
       this.currentUser = user;
@@ -34,51 +31,12 @@ export class AppComponent {
           'background-image':  `url(${this.currentUser.auth.photoURL})`
         };
 
-        // We load currently existing questions.
-        this.questions = this.af.database.list('/questions', {
-          query: {
-            limitToLast: 12
-          }
-        });
-        this.questions.subscribe((questions) => {
-          // Calculate list of recently discussed topics
-          const topicsMap = {};
-          const topics = [];
-          let hasEntities = false;
-          questions.forEach((question) => {
-            if (question.entities) {
-              for (let entity of question.entities) {
-                if (!topicsMap.hasOwnProperty(entity.name)) {
-                  topicsMap[entity.name] = 0
-                }
-                topicsMap[entity.name] += entity.salience;
-                hasEntities = true;
-              }
-            }
-          });
-          if (hasEntities) {
-            for (let name in topicsMap) {
-              topics.push({ name, score: topicsMap[name] });
-            }
-            topics.sort((a, b) => b.score - a.score);
-            this.topics = topics.map((topic) => topic.name).join(', ');
-          }
-
-          // Make sure new question scroll into view
-          setTimeout(() => {
-            const questionList = document.getElementById('questions');
-            questionList.scrollTop = questionList.scrollHeight;
-            document.getElementById('question').focus();
-          }, 500);
-        });
-
         // We save the Firebase Messaging Device token and enable notifications.
         this.saveMessagingDeviceToken();
       } else { // User is signed out!
         this.profilePicStyles = {
           'background-image':  PROFILE_PLACEHOLDER_IMAGE_URL
         };
-        this.topics = '';
       }
     });
   }
@@ -95,6 +53,20 @@ export class AppComponent {
   update(value: string) {
     this.value = value;
   }
+
+  getQuestions():void {
+    this.questionService.getQuestions().then(questions => this.questions = questions);
+  }
+
+  ngOnInit(): void {
+    console.log("ngOnInit called");
+    this.getQuestions();
+  }
+
+  onSelect(question : FirebaseObjectObservable<any>): void {
+    this.selectedQuestion = question;
+  }
+  
 
   // Returns true if user is signed-in. Otherwise false and displays a message.
   checkSignedInWithMessage() {
