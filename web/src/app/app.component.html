@@ -23,19 +23,26 @@
       <!-- Questions container -->
       <div id="questions-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
         <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-          <div id="questions">
-            <span id="question-filler"></span>
-            <div class="question-container" *ngFor="let question of questions | async" >
+          <ul class="questions">
+            <li *ngFor="let question of questions | async"
+                [class.selected]="question === selectedQuestion"
+                (click)="onSelect(question)">
               <div class="question">
                 <span *ngIf="question.id">{{ question.id }}.</span>
                 <span *ngIf="question.text"><a>{{ question.text }}/</a></span>
-                <img *ngIf="question.imageUrl" [src]="question.imageUrl + (question.moderated ? '&amp;moderated=1' : '')">
+                <!--img *ngIf="question.imageUrl" [src]="question.imageUrl + (question.moderated ? '&amp;moderated=1' : '')" !-->
               </div>
-              <div class="type">{{ question.type }}</div>
-            </div>
-          </div>
+              <div>
+                <span *ngIf="question.category">{{ question.category }}</span>
+                <span *ngIf="question.type">{{ question.type }}</span>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
+    </div>
+    <div>
+      <question-detail [question]="selectedQuestion"></question-detail>
     </div>
   </main>
 </div>

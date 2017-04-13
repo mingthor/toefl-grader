@@ -1,6 +1,6 @@
 
 import { Component, Inject } from '@angular/core';
-import { AngularFire, FirebaseApp, FirebaseListObservable, FirebaseAuthState } from 'angularfire2';
+import { AngularFire, FirebaseApp, FirebaseObjectObservable, FirebaseListObservable, FirebaseAuthState } from 'angularfire2';
 import { MdSnackBar } from '@angular/material';
 
 const LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
@@ -15,10 +15,15 @@ export class AppComponent {
   currentUser: FirebaseAuthState;
   fbApp: any;
   questions: FirebaseListObservable<any>;
+  selectedQuestion: FirebaseObjectObservable<any>;
   profilePicStyles: {};
   topics = '';
   value = '';
 
+  onSelect(question : FirebaseObjectObservable<any>): void {
+    this.selectedQuestion = question;
+  }
+  
   constructor(public af: AngularFire, @Inject(FirebaseApp) fbApp: any, public snackBar: MdSnackBar) {
     this.fbApp = fbApp;
     this.af.auth.subscribe((user: FirebaseAuthState) => {
