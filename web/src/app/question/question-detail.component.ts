@@ -2,28 +2,24 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FirebaseObjectObservable } from 'angularfire2';
 
-import { slideInDownAnimation } from './animations';
 import { QuestionService } from './question.service';
 
 @Component({
   template: `
     <div *ngIf="question">
-      <h2>Question {{question.id}} details!</h2>
-      <div><label>category: </label>{{question.category}}</div>
+      <h2>Question {{(question | async)?.id}} details!</h2>
+      <div><label>category: </label>{{(question | async)?.category}}</div>
       <div>
         <label>text: </label>
-        <input [(ngModel)]="question.text" placeholder="text"/>
-        Hello
+        {{(question | async)?.text}}
       </div>
       <p>
         <button (click)="gotoQuestions()">Back</button>
       </p>
     </div>
-  `,
-  animations: [ slideInDownAnimation ]
+  `
 })
 export class QuestionDetailComponent implements OnInit {
-  @HostBinding('@routeAnimation') routeAnimation = true;
   
   question: FirebaseObjectObservable<any>;
   questionKey: string;

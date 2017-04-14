@@ -27,7 +27,8 @@ import { QuestionService }  from './question.service';
         </div>
       </div>
     </div>
-  `
+  `,
+  styleUrls: ['../app.component.css']
 })
 export class QuestionListComponent implements OnInit {
 
