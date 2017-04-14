@@ -1,23 +1,21 @@
-import { AngularFire, FirebaseListObservable, FirebaseAuthState } from 'angularfire2';
+import { AngularFire, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2';
 import { Injectable } from '@angular/core';
 
 @Injectable()
 export class QuestionService {
-  currentUser: FirebaseAuthState;
    
-  constructor(public af: AngularFire) {
-    this.af.auth.subscribe((user: FirebaseAuthState) => {
-      this.currentUser = user;
-      console.log("currentUser ");
-    });
-  }
+  constructor(public af: AngularFire) {}
   
   getQuestions(): Promise<FirebaseListObservable<any> >  {
-    console.log("QuestionService getQuestions called");
     return Promise.resolve(this.af.database.list('/questions', {
           query: {
             limitToLast: 12
           }
         }));
+  }
+
+  getQuestion(key: string): Promise<FirebaseObjectObservable<any> > {
+    console.log("QuestionService getQuestion at "+'/questions/'+key);
+    return Promise.resolve(this.af.database.object('/questions/'+key));
   }
 }

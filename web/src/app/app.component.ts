@@ -2,7 +2,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFire, FirebaseApp, FirebaseObjectObservable, FirebaseListObservable, FirebaseAuthState } from 'angularfire2';
 import { MdSnackBar } from '@angular/material';
-import { QuestionService } from './question.service';
 
 const LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
 const PROFILE_PLACEHOLDER_IMAGE_URL = '/assets/images/profile_placeholder.png';
@@ -10,18 +9,15 @@ const PROFILE_PLACEHOLDER_IMAGE_URL = '/assets/images/profile_placeholder.png';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [QuestionService]
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
+export class AppComponent {
   currentUser: FirebaseAuthState;
   fbApp: any;
-  questions: FirebaseListObservable<any>;
-  selectedQuestion: FirebaseObjectObservable<any>;
   profilePicStyles: {};
   value = '';
 
-  constructor(public af: AngularFire, @Inject(FirebaseApp) fbApp: any, public snackBar: MdSnackBar, private questionService: QuestionService) {
+  constructor(public af: AngularFire, @Inject(FirebaseApp) fbApp: any, public snackBar: MdSnackBar) {
     this.fbApp = fbApp;
     this.af.auth.subscribe((user: FirebaseAuthState) => {
       this.currentUser = user;
@@ -53,20 +49,6 @@ export class AppComponent implements OnInit{
   update(value: string) {
     this.value = value;
   }
-
-  getQuestions():void {
-    this.questionService.getQuestions().then(questions => this.questions = questions);
-  }
-
-  ngOnInit(): void {
-    console.log("ngOnInit called");
-    this.getQuestions();
-  }
-
-  onSelect(question : FirebaseObjectObservable<any>): void {
-    this.selectedQuestion = question;
-  }
-  
 
   // Returns true if user is signed-in. Otherwise false and displays a message.
   checkSignedInWithMessage() {

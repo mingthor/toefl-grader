@@ -7,10 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { MaterialModule } from '@angular/material';
 
+import { Router } from '@angular/router';
+
 import { AppComponent } from './app.component';
-import { QuestionDetailComponent } from './question-detail.component';
+import { AppRoutingModule }        from './app-routing.module';
 import { StylizePipe } from './stylize.pipe';
 import { environment } from '../environments/environment';
+import { QuestionModule }            from './question.module';
 
 const configErrMsg = `You have not configured and imported the Firebase SDK.
 Make sure you go through the codelab setup instructions.`;
@@ -32,8 +35,7 @@ if (!environment.firebase) {
 @NgModule({
   declarations: [
     AppComponent,
-    StylizePipe,
-    QuestionDetailComponent
+    StylizePipe
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,9 @@ if (!environment.firebase) {
     AngularFireModule.initializeApp(environment.firebase, {
       provider: AuthProviders.Google,
       method: AuthMethods.Redirect
-    })
+    }),
+    QuestionModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
