@@ -60,10 +60,10 @@ export class QuestionDetailComponent implements OnInit {
       const responses = this.af.database.list('/users/'+uid+'/responses');
       responses.push({
         audioUrl: 'https://www.google.com/images/spin-32.gif',
+        question: this.questionKey
       }).then((data) => {
         // Upload the audio file to Cloud Storage.
         const filePath = `${this.authService.currentUser.uid}/${data.key}/${file.name}`;
-        console.log("uploadAudio: filePath: "+filePath);
         return this.fbApp.storage().ref(filePath).put(file)
           .then((snapshot) => {
             // Get the file's Storage URI
@@ -78,12 +78,17 @@ export class QuestionDetailComponent implements OnInit {
               audioUrl: metadata.downloadURLs[0]
             });
           });
-    }).catch((err) => {
+      }).catch((err) => {
         this.snackBar.open('There was an error uploading a file to Cloud Storage.', null, {
           duration: 5000
         });
         console.error(err);
       });
+    } else {
+      this.snackBar.open('You must sign in first', null, {
+        duration: 5000
+      });
+      return;
     }
   }
   

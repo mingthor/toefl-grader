@@ -2,7 +2,7 @@
   <!-- Questions container -->
   <div id="questions-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
     <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-      <h2>TOEFL Speaking Questions</h2>
+      <h3>TOEFL Speaking Questions</h3>
       <ul class="questions">
         <li *ngFor="let question of questions | async"
             [class.selected]="isSelected(question.$key)"
