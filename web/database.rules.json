@@ -4,6 +4,12 @@
       ".read": "true",
       ".write": "false"
     },
+    "users" : {
+      "$userid": {
+    	".read": "$userid === auth.uid",
+        ".write": "$userid === auth.uid"
+      }
+    },
     "fcmTokens": {
       "$token": {
         ".read": "data.val() === auth.uid", // Users can only read their own device tokens

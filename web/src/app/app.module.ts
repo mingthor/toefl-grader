@@ -14,6 +14,7 @@ import { AppRoutingModule }        from './app-routing.module';
 import { StylizePipe } from './stylize.pipe';
 import { environment } from '../environments/environment';
 import { QuestionModule }            from './question/question.module';
+import { AuthService } from './auth.service';
 
 const configErrMsg = `You have not configured and imported the Firebase SDK.
 Make sure you go through the codelab setup instructions.`;
@@ -50,7 +51,7 @@ if (!environment.firebase) {
     QuestionModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

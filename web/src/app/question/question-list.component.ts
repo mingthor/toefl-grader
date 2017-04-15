@@ -4,30 +4,7 @@ import { FirebaseListObservable } from 'angularfire2';
 import { QuestionService }  from './question.service';
 
 @Component({
-  template: `
-    <div id="questions-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
-      <!-- Questions container -->
-      <div id="questions-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-        <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-         <h2>TOEFL Speaking Questions</h2>
-         <ul class="questions">
-           <li *ngFor="let question of questions | async"
-             [class.selected]="isSelected(question.$key)"
-             (click)="onSelect(question.$key)">
-             <div class="question">
-               <span *ngIf="question.id">{{ question.id }}.</span>
-               <span *ngIf="question.text"><a>{{ question.text }}/</a></span>
-             </div>
-             <div>
-               <span *ngIf="question.category">{{ question.category }}</span>
-               <span *ngIf="question.type">{{ question.type }}</span>
-             </div>
-           </li>
-         </ul>
-        </div>
-      </div>
-    </div>
-  `,
+  templateUrl: './question-list.component.html',
   styleUrls: ['../app.component.css']
 })
 export class QuestionListComponent implements OnInit {
