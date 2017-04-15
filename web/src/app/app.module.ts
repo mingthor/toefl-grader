@@ -13,7 +13,8 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule }        from './app-routing.module';
 import { StylizePipe } from './stylize.pipe';
 import { environment } from '../environments/environment';
-import { QuestionModule }            from './question/question.module';
+import { QuestionModule } from './question/question.module';
+import { LoginComponent } from './login.component';
 import { AuthService } from './auth.service';
 
 const configErrMsg = `You have not configured and imported the Firebase SDK.
@@ -36,7 +37,8 @@ if (!environment.firebase) {
 @NgModule({
   declarations: [
     AppComponent,
-    StylizePipe
+    StylizePipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

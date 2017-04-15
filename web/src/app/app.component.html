@@ -5,16 +5,8 @@
       <div class="mdl-layout__header-row mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
         <h3><i class="material-icons">language</i> TOEFL Grader</h3>
       </div>
-      <div id="user-container">
-        <div *ngIf="authService.currentUser" id="user-pic" [ngStyle]="profilePicStyles"></div>
-        <div *ngIf="authService.currentUser" id="user-name">{{ (af.auth | async)?.auth.displayName }}</div>
-        <button *ngIf="authService.currentUser" id="sign-out" (click)="authService.logout()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-          Sign-out
-        </button>
-        <button *ngIf="!authService.currentUser" id="sign-in" (click)="authService.login()" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--white">
-          <i class="material-icons">account_circle</i>Sign-in with Google
-        </button>
-      </div>
+      <!-- Sign in status bar -->
+      <login></login>
     </div>
   </header>
 
