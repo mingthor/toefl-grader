@@ -4,6 +4,7 @@ import { FormsModule }    from '@angular/forms';
 
 import { QuestionListComponent }    from './question-list.component';
 import { QuestionDetailComponent }  from './question-detail.component';
+import { ResponseListComponent } from '../response/response-list.component';
 
 import { QuestionService } from './question.service';
 
@@ -17,7 +18,8 @@ import { QuestionRoutingModule } from './question-routing.module';
   ],
   declarations: [
     QuestionListComponent,
-    QuestionDetailComponent
+    QuestionDetailComponent,
+    ResponseListComponent
   ],
   providers: [ QuestionService ]
 })

@@ -1,0 +1,23 @@
+<!-- Three Line List with secondary info and action -->
+<style>
+.demo-list-three {
+  width: 650px;
+}
+</style>
+
+<div>
+  <h3>Responses</h3>
+  <ul class="demo-list-three mdl-list">
+    <li class="mdl-list__item mdl-list__item--three-line"
+        *ngFor="let response of responses | async">
+      <span>{{ response.createdAt }}</span>
+      <span class="mdl-list__item-primary-content">
+        <span >Audio URL</span>
+        <span>{{ response.audioUrl }}</span>
+      </span>
+      <span class="mdl-list__item-secondary-content">
+        <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">play_circle_filled</i></a>
+      </span>
+    </li>
+  </ul>
+</div>
