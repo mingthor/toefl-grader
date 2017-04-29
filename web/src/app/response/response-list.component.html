@@ -10,14 +10,13 @@
   <ul class="demo-list-three mdl-list">
     <li class="mdl-list__item mdl-list__item--three-line"
         *ngFor="let response of responses | async">
-      <span>{{ response.createdAt }}</span>
       <span class="mdl-list__item-primary-content">
-        <span >Audio URL</span>
-        <span>{{ response.audioUrl }}</span>
+        <audio controls>
+          <source src="{{response.audioUrl}}" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
       </span>
-      <span class="mdl-list__item-secondary-content">
-        <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons">play_circle_filled</i></a>
-      </span>
+      <span class="mdl-list__item-secondary-content">{{ response.createdAt }}</span>
     </li>
   </ul>
 </div>
