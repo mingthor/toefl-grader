@@ -6,21 +6,21 @@ import { QuestionListComponent }    from './question-list.component';
 import { QuestionDetailComponent }  from './question-detail.component';
 import { ResponseListComponent } from '../response/response-list.component';
 
-import { QuestionService } from './question.service';
+import { DataService } from '../data.service';
 
 import { QuestionRoutingModule } from './question-routing.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    QuestionRoutingModule
-  ],
-  declarations: [
-    QuestionListComponent,
-    QuestionDetailComponent,
-    ResponseListComponent
-  ],
-  providers: [ QuestionService ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        QuestionRoutingModule
+    ],
+    declarations: [
+        QuestionListComponent,
+        QuestionDetailComponent,
+        ResponseListComponent
+    ],
+    providers: [ DataService ]
 })
 export class QuestionModule {}

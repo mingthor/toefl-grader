@@ -1,9 +1,9 @@
-import { Component, Inject, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { AngularFire, FirebaseApp, FirebaseObjectObservable } from 'angularfire2';
+import { AngularFire, FirebaseObjectObservable } from 'angularfire2';
 
-import { QuestionService } from './question.service';
 import { AuthService } from '../auth.service';
+import { DataService } from '../data.service';
 import { MdSnackBar } from '@angular/material';
 
 @Component({
@@ -11,21 +11,17 @@ import { MdSnackBar } from '@angular/material';
 })
 export class QuestionDetailComponent implements OnInit {
 
-    fbApp: any;
     question: FirebaseObjectObservable<any>;
     questionKey: string;
 
     constructor(
         public af: AngularFire,
-        @Inject(FirebaseApp) fbApp: any,
         private route: ActivatedRoute,
         private router: Router,
-        private questionService: QuestionService,
         private authService: AuthService,
+        private dataService: DataService,
         public snackBar: MdSnackBar
-    ) {
-        this.fbApp = fbApp;
-    }
+    ) {}
 
     ngOnInit() {
         this.route.params.subscribe(params => {
@@ -33,7 +29,7 @@ export class QuestionDetailComponent implements OnInit {
             console.log("question-detail questionKey = " + this.questionKey);
         });
         
-        this.questionService.getQuestion(this.questionKey).then(question => this.question = question);
+        this.dataService.getQuestion(this.questionKey).then(question => this.question = question);
     }
 
     // upload audio file to server for grading
@@ -56,36 +52,15 @@ export class QuestionDetailComponent implements OnInit {
         if (this.authService.currentUser) {
             // We add a message with a loading icon that will get updated with the shared image.
             const uid = this.authService.currentUser.uid;
-            console.log("upload audio uid = "+uid);
-            var d = new Date();
-            const responses = this.af.database.list('/responses/'+uid);
-            responses.push({
-                audioUrl: 'https://www.google.com/images/spin-32.gif',
-                createdAt: d.toJSON(),
-                question: this.questionKey
-            }).then((data) => {
-                // Upload the audio file to Cloud Storage.
-                const filePath = `${this.authService.currentUser.uid}/${data.key}/${file.name}`;
-                return this.fbApp.storage().ref(filePath).put(file)
-                    .then((snapshot) => {
-                        // Get the file's Storage URI
-                        const fullPath = snapshot.metadata.fullPath;
-                        const audioUrl = this.fbApp.storage().ref(fullPath).toString();
-                        return this.fbApp.storage().refFromURL(audioUrl).getMetadata();
-                    }).then((metadata) => {
-                        // TODO: Instead of saving the download URL, save the GCS URI and
-                        //       dynamically load the download URL when displaying the image
-                        //       message.
-                        return data.update({
-                            audioUrl: metadata.downloadURLs[0]
-                        });
-                    });
-            }).catch((err) => {
+            try {
+                this.dataService.saveAudioResponse(uid, this.questionKey, file);
+            }
+            catch(err) {
                 this.snackBar.open('There was an error uploading a file to Cloud Storage.', null, {
                     duration: 5000
                 });
                 console.error(err);
-            });
+            }
         } else {
             this.snackBar.open('You must sign in first', null, {
                 duration: 5000

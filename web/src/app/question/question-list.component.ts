@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FirebaseListObservable } from 'angularfire2';
-import { QuestionService }  from './question.service';
+import { DataService }  from '../data.service';
 
 @Component({
   templateUrl: './question-list.component.html',
@@ -13,7 +13,7 @@ export class QuestionListComponent implements OnInit {
   selectedKey: string;
 
   constructor(
-    private service: QuestionService,
+    private dataService: DataService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -24,7 +24,7 @@ export class QuestionListComponent implements OnInit {
         console.log("init key = " + this.selectedKey);
     });
     
-    this.service.getQuestions().then(questions => this.questions = questions);
+    this.dataService.getQuestions().then(questions => this.questions = questions);
   }
 
   isSelected(key: string ) {
