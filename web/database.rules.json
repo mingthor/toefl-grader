@@ -6,8 +6,9 @@
     },
     "users" : {
       "$userid": {
-    	".read": "$userid === auth.uid",
-        ".write": "$userid === auth.uid"
+    	  ".read": "$userid === auth.uid",
+        ".write": "$userid === auth.uid",
+        ".indexOn":"question"
       }
     },
     "fcmTokens": {
