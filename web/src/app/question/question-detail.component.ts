@@ -7,7 +7,7 @@ import { DataService } from '../data.service';
 import { MdSnackBar } from '@angular/material';
 
 @Component({
-  templateUrl: './question-detail.component.html'
+    templateUrl: './question-detail.component.html'
 })
 export class QuestionDetailComponent implements OnInit {
 
@@ -21,14 +21,14 @@ export class QuestionDetailComponent implements OnInit {
         private authService: AuthService,
         private dataService: DataService,
         public snackBar: MdSnackBar
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.questionKey = params['key'];
             console.log("question-detail questionKey = " + this.questionKey);
         });
-        
+
         this.dataService.getQuestion(this.questionKey).then(question => this.question = question);
     }
 
@@ -48,14 +48,14 @@ export class QuestionDetailComponent implements OnInit {
             });
             return;
         }
-        
+
         if (this.authService.currentUser) {
             // We add a message with a loading icon that will get updated with the shared image.
             const uid = this.authService.currentUser.uid;
             try {
                 this.dataService.saveAudioResponse(uid, this.questionKey, file);
             }
-            catch(err) {
+            catch (err) {
                 this.snackBar.open('There was an error uploading a file to Cloud Storage.', null, {
                     duration: 5000
                 });
@@ -68,13 +68,13 @@ export class QuestionDetailComponent implements OnInit {
             return;
         }
     }
-    
+
     onAudioClick(event: any) {
         event.preventDefault();
         document.getElementById('audioCapture').click();
     }
 
     gotoQuestions() {
-        this.router.navigate(['/questions', {key: this.questionKey}]);
+        this.router.navigate(['/questions', { key: this.questionKey }]);
     }
 }
