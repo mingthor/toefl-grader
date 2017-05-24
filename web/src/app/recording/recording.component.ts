@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
+import { AuthService } from '../auth.service';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'recording',
@@ -6,7 +10,21 @@ import { Component } from '@angular/core';
 })
 
 export class RecordingComponent {
-  constructor() { }
+
+  questionKey: string;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService,
+    private dataService: DataService
+  ) { }
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.questionKey = params['key'];
+    });
+  }
 
   startRecording() {
     console.log("startRecording function in recording.html");
@@ -15,38 +33,6 @@ export class RecordingComponent {
         this.stuff(mediaStream);
       });
     }
-  }
-
-  showAudio(url) {
-    var div = document.createElement('div');
-    div.style.border = '1px solid';
-
-    var audio = document.createElement('video');
-    audio.controls = true;
-    audio.src = url;
-    div.appendChild(audio);
-
-    var link = document.createElement('a');
-    link.download = 'recording.ogg';
-    link.href = url;
-    link.innerHTML = 'download';
-    div.appendChild(link);
-
-    document.body.appendChild(div);
-  }
-
-  downloadBlob(url) {
-    return new Promise((resolve, reject) => {
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', url, true);
-      xhr.responseType = 'blob';
-
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-
-      xhr.send();
-    });
   }
 
   stuff(mediaStream) {
@@ -71,24 +57,28 @@ export class RecordingComponent {
       console.log('stop');
       var blob = new Blob(chunks, { type: chunks[0].type });
       chunks = [];
-      var url = URL.createObjectURL(blob);
 
-      this.downloadBlob(url).then(blob => {
-        this.showAudio(URL.createObjectURL(blob));
-      });
-    };
-
-    var button = document.createElement('button');
-    button.innerHTML = 'start';
-    button.onclick = () => {
-      if (recorder.state === 'recording') {
-        recorder.stop();
-        button.innerHTML = 'start';
-      } else {
-        recorder.start();
-        button.innerHTML = 'stop';
+      if (this.authService.currentUser) {
+        // We add a message with a loading icon that will get updated with the shared image.
+        const uid = this.authService.currentUser.uid;
+        try {
+          this.dataService.saveAudioResponse(uid, this.questionKey, blob);
+        }
+        catch (err) {
+          console.error(err);
+        }
       }
     };
-    document.body.appendChild(button);
+    var recordBtn = document.getElementById('recordBtn');
+    recordBtn.addEventListener('click', function () {
+      if (recorder.state === 'recording') {
+        recorder.stop();
+        recordBtn.textContent = 'start';
+      } else {
+        recorder.start();
+        recordBtn.textContent = 'stop';
+      }
+      console.log('recorder.state=' + recorder.state);
+    });
   }
 }

@@ -34,7 +34,7 @@ export class DataService {
         }));
     }
 
-    saveAudioResponse(uid: string, qid: string, file: File) {
+    saveAudioResponse(uid: string, qid: string, file: any) {
         console.log("saveAudioResponse audio uid = "+uid+", filename ="+file.name);
         var d = new Date();
         const responses = this.af.database.list('/responses/'+uid);
