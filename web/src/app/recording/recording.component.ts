@@ -30,17 +30,19 @@ export class RecordingComponent {
     console.log("startRecording function in recording.html");
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ audio: true }).then((mediaStream) => {
-        this.stuff(mediaStream);
+        this.initializeRecorder(mediaStream);
       });
     }
   }
 
-  stuff(mediaStream) {
+  initializeRecorder(mediaStream) {
     console.log(mediaStream);
 
     var recorder = new VorbisMediaRecorder(mediaStream, { audioBitsPerSecond: 32000 });
 
     console.log(recorder);
+
+    setTimeout(function() { recorder.start() }, 5000);
 
     var chunks = [];
 
@@ -69,14 +71,11 @@ export class RecordingComponent {
         }
       }
     };
+    
     var recordBtn = document.getElementById('recordBtn');
     recordBtn.addEventListener('click', function () {
       if (recorder.state === 'recording') {
         recorder.stop();
-        recordBtn.textContent = 'start';
-      } else {
-        recorder.start();
-        recordBtn.textContent = 'stop';
       }
       console.log('recorder.state=' + recorder.state);
     });
