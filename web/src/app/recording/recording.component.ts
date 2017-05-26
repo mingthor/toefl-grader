@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 import { AuthService } from '../auth.service';
 import { DataService } from '../data.service';
@@ -12,6 +13,8 @@ import { DataService } from '../data.service';
 export class RecordingComponent {
 
   questionKey: string;
+  recorderStatus: string;
+  recordingCountdown: number = 5;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,27 +44,36 @@ export class RecordingComponent {
     var recorder = new VorbisMediaRecorder(mediaStream, { audioBitsPerSecond: 32000 });
 
     console.log(recorder);
+    this.recorderStatus = recorder.state;
 
-    setTimeout(function() { recorder.start() }, 5000);
+    let countdown = setInterval(() => {
+      this.recordingCountdown--;
+      if (this.recordingCountdown <= 0) {
+        recorder.start();
+        clearInterval(countdown);
+      }
+    }, 1000);
 
     var chunks = [];
 
     recorder.ondataavailable = (ev) => {
       console.log(ev.data);
+      this.recorderStatus = recorder.state;
       chunks.push(ev.data);
     };
 
     recorder.onstart = () => {
       console.log('start');
+      this.recorderStatus = recorder.state;
     };
 
     recorder.onstop = () => {
       console.log('stop');
+      this.recorderStatus = recorder.state;
       var blob = new Blob(chunks, { type: chunks[0].type });
       chunks = [];
 
       if (this.authService.currentUser) {
-        // We add a message with a loading icon that will get updated with the shared image.
         const uid = this.authService.currentUser.uid;
         try {
           this.dataService.saveAudioResponse(uid, this.questionKey, blob);
@@ -71,9 +83,9 @@ export class RecordingComponent {
         }
       }
     };
-    
-    var recordBtn = document.getElementById('recordBtn');
-    recordBtn.addEventListener('click', function () {
+
+    var stopBtn = document.getElementById('stopBtn');
+    stopBtn.addEventListener('click', function () {
       if (recorder.state === 'recording') {
         recorder.stop();
       }

@@ -2,19 +2,14 @@
   <!-- Questions container -->
   <div id="questions-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
     <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-      <h3>TOEFL Speaking Questions</h3>
-      <ul class="questions">
-        <li *ngFor="let question of questions | async"
-            [class.selected]="isSelected(question.$key)"
-            (click)="onSelect(question.$key)">
-          <div class="question">
-            <span *ngIf="question.id">{{ question.id }}.</span>
+      <h4>Speaking Questions</h4>
+      <ul class="questions mdl-list">
+        <li *ngFor="let question of questions | async" class="mdl-list__item" [class.selected]="isSelected(question.$key)"
+          (click)="onSelect(question.$key)">
+          <span class="question mdl-list__item-primary-content">
+            <span *ngIf="question.id"><label>{{ question.id }}.</label></span>
             <span *ngIf="question.text"><a>{{ question.text }}/</a></span>
-          </div>
-          <div>
-            <span *ngIf="question.category">{{ question.category }}</span>
-            <span *ngIf="question.type">{{ question.type }}</span>
-          </div>
+          </span>
         </li>
       </ul>
     </div>

@@ -1,19 +1,19 @@
-<div *ngIf="question">
-  <h3>Question {{(question | async)?.id}} details!</h3>
+<div *ngIf="question" class="mdl-layout">
+  <h4>Question {{(question | async)?.id}}</h4>
   <div><label>category: </label>{{(question | async)?.category}}</div>
   <div><label>type: </label>{{(question | async)?.type}}</div>
   <div>
-    <label>text: </label>
-    {{(question | async)?.text}}
+    <label>text: </label> {{(question | async)?.text}}
   </div>
-  <form id="audio-form" action="#">
+  <form id="audio-form" action="#" hidden>
     <input id="audioCapture" type="file" accept="audio/*,capture=microphone" (change)="uploadAudio($event)" style="display:none">
-    <button id="submitAudio" title="Submit your response recording to be graded" (click)="onAudioClick($event)"
-            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+    <button id="submitAudio" title="Submit your response recording to be graded" (click)="onAudioClick($event)" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
       Submit Audio Response
     </button>
   </form>
-  <recording></recording>
+  <div class="mdl-cell mdl-cell--12-col mdl-grid">
+    <recording></recording>
+  </div>
   <response-list></response-list>
   <p>
     <button (click)="gotoQuestions()">Back</button>

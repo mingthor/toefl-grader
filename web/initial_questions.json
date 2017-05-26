@@ -1,0 +1,76 @@
+{
+  "questions" : {
+    "1" : {
+      "category" : "Speaking",
+      "id" : 1,
+      "text" : "Talk about a pleasant and memorable event that happened while you were inschool. Explain why this event brings back fond memories.",
+      "type" : "Familiar topics"
+    },
+    "2" : {
+      "category" : "Speaking",
+      "id" : 2,
+      "text" : "Some people think it is more fun to spend time with friends in restaurants or cafés. Others think it is more fun to spend time with friends at home. Which do you think is better? Explain why.",
+      "type" : "Familiar topics"
+    },
+    "3" : {
+      "category" : "Speaking",
+      "id" : 3,
+      "text" : "What is your favorite place to visit on weekends? Describe it and explain why it is your favorite place to go.",
+      "type" : "Familiar topics"
+    },
+    "4" : {
+      "category" : "Speaking",
+      "id" : 4,
+      "text" : "What is your happiest childhood memory? Describe it and give reasons to explain why it is your happiest memory.",
+      "type" : "Familiar topics"
+    },
+    "5" : {
+      "category" : "Speaking",
+      "id" : 5,
+      "text" : "What was your favorite subject at school? Describe it and explain why this subject was your favorite one.",
+      "type" : "Familiar topics"
+    },
+    "6" : {
+      "category" : "Speaking",
+      "id" : 6,
+      "text" : "Name a famous or influential figure who has inspired you. Describe this person and say why he/she has been inspirational to you.",
+      "type" : "Familiar topics"
+    },
+    "7" : {
+      "category" : "Speaking",
+      "id" : 7,
+      "text" : "Talk about a difficulty you have overcome in your life. Describe the experience and say why it was difficult to overcome.",
+      "type" : "Familiar topics"
+    },
+    "8" : {
+      "category" : "Speaking",
+      "id" : 8,
+      "text" : "Some people believe students should attend gym classes in school to improve their health and fitness, while others believe school should only focus on academic subjects. Do you think students should have gym classes in school? Why or why not?",
+      "type" : "Familiar topics"
+    },
+    "9" : {
+      "category" : "Speaking",
+      "id" : 9,
+      "text" : "Some people prefer to travel with other people, while others like to travel on their own. Which method of traveling do you prefer and why?",
+      "type" : "Familiar topics"
+    },
+     "10" : {
+      "category" : "Speaking",
+      "id" : 10,
+      "text" : "Do you prefer living in an urban or rural area? State your preference and give reasons as to why you feel that way.",
+      "type" : "Familiar topics"
+    },
+     "11" : {
+      "category" : "Speaking",
+      "id" : 11,
+      "text" : "Some people believe that students should spend more time in math and science classes rather than humanities and social science classes. Do you agree or disagree? Give reasons to support your choice.",
+      "type" : "Familiar topics"
+    },
+     "12" : {
+      "category" : "Speaking",
+      "id" : 12,
+      "text" : "Do you think that parents should be allowed to educate their children at home, or should they be required to send children to school outside the home? Support your answer.",
+      "type" : "Familiar topics"
+    }
+  }
+}
