@@ -1,10 +1,10 @@
 {
   "rules": {
-    "messages": {
+    "questions": {
       ".read": "true",
       ".write": "false"
     },
-    "users" : {
+    "responses" : {
       "$userid": {
     	  ".read": "$userid === auth.uid",
         ".write": "$userid === auth.uid",
