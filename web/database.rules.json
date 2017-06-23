@@ -1,6 +1,6 @@
 {
   "rules": {
-    "questions": {
+    "problemsets": {
       ".read": "true",
       ".write": "false"
     },

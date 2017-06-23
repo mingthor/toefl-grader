@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FirebaseListObservable } from 'angularfire2';
 import { DataService }  from '../data.service';
+import { MdListModule } from '@angular/material';
 
 @Component({
   templateUrl: './question-list.component.html',
@@ -33,6 +34,6 @@ export class QuestionListComponent implements OnInit {
 
   onSelect(key: string) {
     console.log("key = " + key);
-    this.router.navigate(['/questions', key]);
+    this.router.navigate(['/problemsets/speaking', key]);
   }
 }

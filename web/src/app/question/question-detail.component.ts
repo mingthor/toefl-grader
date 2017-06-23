@@ -75,6 +75,6 @@ export class QuestionDetailComponent implements OnInit {
     }
 
     gotoQuestions() {
-        this.router.navigate(['/questions', { key: this.questionKey }]);
+        this.router.navigate(['/problemsets/speaking', { key: this.questionKey }]);
     }
 }

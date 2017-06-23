@@ -1,6 +1,7 @@
 import { NgModule }       from '@angular/core';
 import { CommonModule }   from '@angular/common';
 import { FormsModule }    from '@angular/forms';
+import { MdListModule } from '@angular/material';
 
 import { QuestionListComponent }    from './question-list.component';
 import { QuestionDetailComponent }  from './question-detail.component';
@@ -15,7 +16,8 @@ import { QuestionRoutingModule } from './question-routing.module';
     imports: [
         CommonModule,
         FormsModule,
-        QuestionRoutingModule
+        QuestionRoutingModule,
+        MdListModule
     ],
     declarations: [
         QuestionListComponent,

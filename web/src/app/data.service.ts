@@ -13,7 +13,7 @@ export class DataService {
     }
 
     getQuestions(): Promise<FirebaseListObservable<any> >  {
-        return Promise.resolve(this.af.database.list('/questions', {
+        return Promise.resolve(this.af.database.list('/problemsets/speaking', {
             query: {
                 limitToLast: 12
             }
@@ -21,13 +21,13 @@ export class DataService {
     }
 
     getQuestion(key: string): Promise<FirebaseObjectObservable<any> > {
-        return Promise.resolve(this.af.database.object('/questions/'+key));
+        return Promise.resolve(this.af.database.object('/problemsets/speaking/'+key));
     }
     
     getUserResponses(uid: string, qid: string): Promise<FirebaseListObservable<any> > {
-        return Promise.resolve(this.af.database.list('/responses/'+uid, {
+        return Promise.resolve(this.af.database.list('/responses/'+uid+'/speaking', {
             query: {
-                orderByChild: 'question',
+                orderByChild: 'timestamp',
                 equalTo: qid,
                 limitToLast: 12,
             }
@@ -37,14 +37,14 @@ export class DataService {
     saveAudioResponse(uid: string, qid: string, file: any) {
         console.log("saveAudioResponse audio uid = "+uid+", filename ="+file.name);
         var d = new Date();
-        const responses = this.af.database.list('/responses/'+uid);
+        const responses = this.af.database.list('/responses/'+uid+'/speaking');
         responses.push({
             audioUrl: 'https://www.google.com/images/spin-32.gif',
             createdAt: d.toJSON(),
             question: qid
         }).then((data) => {
             // Upload the audio file to Cloud Storage.
-            const filePath = `${uid}/${data.key}/${file.name}`;
+            const filePath = `${uid}/speaking/${data.key}/${file.name}`;
             return this.fbApp.storage().ref(filePath).put(file)
                 .then((snapshot) => {
                     // Get the file's Storage URI

@@ -1,8 +1,7 @@
+<!--
 <div id="questions-card-container" class="mdl-cell mdl-cell--12-col mdl-grid">
-  <!-- Questions container -->
   <div id="questions-card" class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
     <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-      <h4>Speaking Questions</h4>
       <ul class="questions mdl-list">
         <li *ngFor="let question of questions | async" class="mdl-list__item" [class.selected]="isSelected(question.$key)"
           (click)="onSelect(question.$key)">
@@ -15,3 +14,15 @@
     </div>
   </div>
 </div>
+-->
+<md-list>
+  <h3 md-subheader>Speaking</h3>
+  <md-list-item *ngFor="let question of questions | async" 
+      [class.selected]="isSelected(question.$key)" (click)="onSelect(question.$key)">
+    <p md-line>
+      <span> {{question.$key}}. </span>
+      <span> {{question.text}} </span>
+    </p>
+  </md-list-item>
+  <md-divider></md-divider>
+</md-list>
