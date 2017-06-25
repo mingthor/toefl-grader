@@ -1,75 +1,3 @@
-
-main, #questions-card {
-  height: 100%;
-  padding-bottom: 0;
-}
-#questions-card-container {
-  height: calc(100% - 150px);
-  padding-bottom: 0;
-}
-.mdl-layout__header-row span {
-  margin-left: 15px;
-  margin-top: 17px;
-}
-.mdl-grid {
-  max-width: 1024px;
-  margin: auto;
-}
-.material-icons {
-  font-size: 36px;
-  top: 8px;
-  position: relative;
-}
-.mdl-layout__header-row {
-  padding: 0;
-  margin: 0 auto;
-}
-.mdl-card__supporting-text {
-  width: auto;
-  height: 100%;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-#questions {
-  overflow-y: auto;
-  margin-bottom: 10px;
-  height: calc(100% - 80px);
-}
-.question-container:first-of-type {
-  border-top-width: 0;
-}
-.question-container {
-  display: block;
-  margin-top: 10px;
-  border-top: 1px solid #f3f3f3;
-  padding-top: 10px;
-  /*opacity: 0;*/
-  transition: opacity 1s ease-in-out;
-}
-.question-container.visible {
-  opacity: 1;
-}
-.question-container .question {
-  display: table-cell;
-  width: calc(100% - 40px);
-  padding: 5px 0 5px 10px;
-}
-.question-container .text {
-  display: inline-block;
-  width: 100%;
-  padding-left: 40px;
-  color: #bbb;
-  font-style: italic;
-  font-size: 12px;
-  box-sizing: border-box;
-}
-.mdl-card {
-    min-height: 0;
-}
-.mdl-card {
-    background: linear-gradient(white, #f9f9f9);
-    justify-content: space-between;
-}
 #user-container {
     position: absolute;
     display: flex;
@@ -98,10 +26,6 @@ main, #questions-card {
     padding-right: 10px;
     padding-left: 20px;
 }
-.question img {
-    max-width: 300px;
-    max-height: 100px;
-}
 @media screen and (max-width: 610px) {
     header {
         height: 113px;
@@ -111,7 +35,7 @@ main, #questions-card {
         top: 72px;
         background-color: rgb(3,155,229);
         height: 38px;
-        padding-top: 3px;
+        padding-top: 2px;
         padding-right: 2px;
     }
     #user-container #user-pic {
@@ -120,37 +44,4 @@ main, #questions-card {
         height: 33px;
         background-size: 33px;
     }
-}
-.mdl-button .material-icons {
-    top: -1px;
-    margin-right: 5px;
-}
-.selected {
-    background-color: #CFD8DC !important;
-    color: white;
-}
-.questions {
-    margin: 0 0 2em 0;
-    list-style-type: none;
-    padding: 0;
-}
-.questions li {
-    cursor: pointer;
-    position: relative;
-    left: 0;
-    background-color: #EEE;
-    border-radius: 4px;
-}
-.questions li.selected:hover {
-    background-color: #BBD8DC !important;
-    color: white;
-}
-.questions li:hover {
-    color: #607D8B;
-    background-color: #DDD;
-    left: .1em;
-}
-.questions .text {
-    position: relative;
-    top: -3px;
 }

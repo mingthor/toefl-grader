@@ -12,16 +12,16 @@ export class DataService {
         this.fbApp = fbApp;
     }
 
-    getQuestions(): Promise<FirebaseListObservable<any> >  {
-        return Promise.resolve(this.af.database.list('/problemsets/speaking', {
+    getQuestions(section: string): Promise<FirebaseListObservable<any> >  {
+        return Promise.resolve(this.af.database.list('/problemsets/'+section, {
             query: {
                 limitToLast: 12
             }
         }));
     }
 
-    getQuestion(key: string): Promise<FirebaseObjectObservable<any> > {
-        return Promise.resolve(this.af.database.object('/problemsets/speaking/'+key));
+    getQuestion(section: string, key: string): Promise<FirebaseObjectObservable<any> > {
+        return Promise.resolve(this.af.database.object('/problemsets/'+section+'/'+key));
     }
     
     getUserResponses(uid: string, qid: string): Promise<FirebaseListObservable<any> > {

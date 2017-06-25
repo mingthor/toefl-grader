@@ -10,13 +10,10 @@ import { RecordingComponent } from '../recording/recording.component';
 
 import { DataService } from '../data.service';
 
-import { QuestionRoutingModule } from './question-routing.module';
-
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
-        QuestionRoutingModule,
         MdListModule
     ],
     declarations: [

@@ -10,10 +10,8 @@
     <!-- Tabs -->
     <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
       <nav class="mdl-navigation">
-        <a routerLink="/problemsets/reading" routerLinkActive="active" class="mdl-layout__tab is-active">Reading</a>
-        <a routerLink="/problemsets/listening" routerLinkActive="active" class="mdl-layout__tab">Listening</a>
-        <a routerLink="/problemsets/speaking" routerLinkActive="active" class="mdl-layout__tab">Speaking</a>
-        <a routerLink="/problemsets/writing" routerLinkActive="active" class="mdl-layout__tab">Writing</a>
+        <a class="mdl-layout__tab" href="problemsets/speaking">Speaking</a>
+        <a class="mdl-layout__tab" href="problemsets/writing">Writing</a>
       </nav>
     </div>
   </header>
@@ -26,7 +24,7 @@
     </nav>
   </div>
 
-  <!-- <main class="mdl-layout__content"> -->
+  <main class="mdl-layout__content">
      <router-outlet></router-outlet>
-  <!-- </main> -->
+   </main>
 </div>

@@ -8,7 +8,7 @@
       "$userid": {
     	  ".read": "$userid === auth.uid",
         ".write": "$userid === auth.uid",
-        ".indexOn":"question"
+        ".indexOn":"question_id"
       }
     },
     "fcmTokens": {

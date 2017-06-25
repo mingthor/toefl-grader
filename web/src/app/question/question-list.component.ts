@@ -6,12 +6,13 @@ import { MdListModule } from '@angular/material';
 
 @Component({
   templateUrl: './question-list.component.html',
-  styleUrls: ['../app.component.css']
+  styleUrls: ['./question-list.component.css']
 })
 export class QuestionListComponent implements OnInit {
 
   questions: FirebaseListObservable<any>;
   selectedKey: string;
+  section: string;
 
   constructor(
     private dataService: DataService,
@@ -22,10 +23,11 @@ export class QuestionListComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
         this.selectedKey = params['key'];
+        this.section = params['section'];
         console.log("init key = " + this.selectedKey);
     });
     
-    this.dataService.getQuestions().then(questions => this.questions = questions);
+    this.dataService.getQuestions(this.section).then(questions => this.questions = questions);
   }
 
   isSelected(key: string ) {
@@ -34,6 +36,6 @@ export class QuestionListComponent implements OnInit {
 
   onSelect(key: string) {
     console.log("key = " + key);
-    this.router.navigate(['/problemsets/speaking', key]);
+    this.router.navigate(['/problemsets/'+this.section, key]);
   }
 }

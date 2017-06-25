@@ -1,0 +1,109 @@
+{
+  "problemsets" : {
+    "listening" : [ {
+      "answers" : [ null, "a", "d", null, null, "d" ],
+      "audioUrl" : "audioUrl",
+      "title" : "Title of This Conversation or Lecture"
+    } ],
+    "reading" : [ {
+      "answers" : [ null, "a", "d", "a", "c", "b" ],
+      "resourceUrl" : "blahblah",
+      "title" : "Title of This Reading Passage"
+    } ],
+    "speaking" : [ {
+      "preparation_time" : 10,
+      "response_time" : 45,
+      "text" : "Talk about a pleasant and memorable event that happened while you were inschool. Explain why this event brings back fond memories.",
+      "type" : 1,
+      "title": "A pleasant and memorable event"
+    }, {
+      "preparation_time" : 10,
+      "response_time" : 45,
+      "text" : "Some people think it is more fun to spend time with friends in restaurants or cafés. Others think it is more fun to spend time with friends at home. Which do you think is better? Explain why.",
+      "type" : 2,
+      "title": "Spend time with friends in restaurants or at home"
+    }, {
+      "preparation_time" : 10,
+      "response_time" : 45,
+      "text" : "What is your favorite place to visit on weekends? Describe it and explain why it is your favorite place to go.",
+      "type" : 1,
+      "title" : "Your favorite place to visit"
+    }, {
+      "preparation_time" : 10,
+      "response_time" : 45,
+      "text" : "What is your happiest childhood memory? Describe it and give reasons to explain why it is your happiest memory.",
+      "type" : "1",
+      "title" : "Your happiest childhood memory"
+    }, {
+      "text" : "What was your favorite subject at school? Describe it and explain why this subject was your favorite one.",
+      "type" : 1,
+      "title" : "Your favorite subject at school"
+    }, {
+      "text" : "Name a famous or influential figure who has inspired you. Describe this person and say why he/she has been inspirational to you.",
+      "type" : 1,
+      "title" : "Your favorite subject at school"
+    }, {
+      "text" : "Talk about a difficulty you have overcome in your life. Describe the experience and say why it was difficult to overcome.",
+      "type" : 1,
+      "title" : "Talk about a difficulty you have overcome"
+    }, {
+      "text" : "Some people believe students should attend gym classes in school to improve their health and fitness, while others believe school should only focus on academic subjects. Do you think students should have gym classes in school? Why or why not?",
+      "type" : 2,
+      "title" : "Gym classes in school"
+    }, {
+      "text" : "Some people prefer to travel with other people, while others like to travel on their own. Which method of traveling do you prefer and why?",
+      "type" : 2,
+      "title" : "Travel with other people or by yourself"
+    }, {
+      "text" : "Do you prefer living in an urban or rural area? State your preference and give reasons as to why you feel that way.",
+      "type" : 2,
+      "title" : "Living in an urban or rural area"
+    }, {
+      "text" : "Some people believe that students should spend more time in math and science classes rather than humanities and social science classes. Do you agree or disagree? Give reasons to support your choice.",
+      "type" : 2,
+      "title" : "Math and science or humanities and social science"
+    }, {
+      "text" : "Do you think that parents should be allowed to educate their children at home, or should they be required to send children to school outside the home? Support your answer.",
+      "type" : 2,
+      "title" : "Educate children at home or in schools"
+    } ],
+    "writing" : [ {
+      "audioUrl" : "audioUrl",
+      "text" : "Do you agree or disagree with the following statement? Students should take out student loans to avoid working while studying. Use specific reasons and examples to support your answer.",
+      "title" : "Student Loans",
+      "type" : "Independent"
+    } ]
+  },
+  "responses" : {
+    "uid" : {
+      "listening" : [ {
+        "problemset_id1" : [ null, "d", "a", "c", "c" ],
+        "score" : 10,
+        "timestamp" : "yesterday"
+      }, {
+        "problemset_id2" : [ null, "d", "a", "c", "c" ],
+        "score" : 10,
+        "timestamp" : "yesterday"
+      } ],
+      "reading" : [ {
+        "problemset_id1" : [ null, "a", "b", "b" ],
+        "score" : 3,
+        "timestamp" : "yesterday"
+      }, {
+        "problemset_id1" : [ null, "a", "b", "b" ],
+        "score" : 4,
+        "timestamp" : "this morening"
+      } ],
+      "speaking" : [ {
+        "audioUrl" : "audioUrl",
+        "question_id" : 1,
+        "timestamp" : "some time yesterday"
+      } ],
+      "writing" : [ {
+        "questions_id" : "question_id",
+        "text" : "Empty content",
+        "timestamp" : "this morning"
+      } ]
+    }
+  }
+}

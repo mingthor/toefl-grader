@@ -12,6 +12,7 @@ import { MdSnackBar } from '@angular/material';
 export class QuestionDetailComponent implements OnInit {
 
     question: FirebaseObjectObservable<any>;
+    section: string;
     questionKey: string;
 
     constructor(
@@ -26,10 +27,11 @@ export class QuestionDetailComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe(params => {
             this.questionKey = params['key'];
+            this.section = params['section'];
             console.log("question-detail questionKey = " + this.questionKey);
         });
 
-        this.dataService.getQuestion(this.questionKey).then(question => this.question = question);
+        this.dataService.getQuestion(this.section, this.questionKey).then(question => this.question = question);
     }
 
     // upload audio file to server for grading
